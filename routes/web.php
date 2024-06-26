@@ -29,10 +29,3 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
-
-use App\Models\Author;
-
-Route::get('/authors', function () {
-    $authors = Author::all();
-    return view('authors.index', compact('authors'));
-});

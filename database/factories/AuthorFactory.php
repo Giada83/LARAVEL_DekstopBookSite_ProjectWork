@@ -24,14 +24,10 @@ class AuthorFactory extends Factory
      */
     public function definition()
     {
-        // Genera un ID casuale per l'immagine
-        $randomId = mt_rand(1, 1000);
-
         return [
             'name' => $this->faker->firstName,
             'surname' => $this->faker->lastName,
             //'image' => 'https://picsum.photos/400/400',
-            // 'image' => $this->faker->imageUrl(640, 480, $randomId, true, 'people'),
             //1.installato picsum provider : composer require --dev smknstd/fakerphp-picsum-images
             //2. generato un nuovo provider : php artisan make:provider FakerServiceProvider
             //3. aggiunto in app.php : App\Providers\FakerServiceProvider::class,
