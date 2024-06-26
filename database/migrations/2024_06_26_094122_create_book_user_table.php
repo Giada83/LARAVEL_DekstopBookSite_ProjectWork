@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     //php artisan make:migration create_book_user_table --create=book_user
+    //1. aggiunta delle relazioni nei model Book e User
 
     public function up(): void
     {
