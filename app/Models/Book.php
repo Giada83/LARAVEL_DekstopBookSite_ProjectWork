@@ -15,4 +15,10 @@ class Book extends Model
     {
         return $this->belongsTo(Author::class);
     }
+
+    //Relazione molti a molti con Category - book_category
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }
