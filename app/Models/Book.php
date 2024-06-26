@@ -21,4 +21,10 @@ class Book extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    //Relazione molti a molti con User - book_user (aggiunta d libri ai preferiti)
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot('status', 'is_favorite');
+    }
 }

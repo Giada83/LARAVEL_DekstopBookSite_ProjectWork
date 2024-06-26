@@ -44,4 +44,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    //Relazione molti a molti con Book - book_user (aggiunta d libri ai preferiti)
+    public function books()
+    {
+        return $this->belongsToMany(Book::class)->withPivot('status', 'is_favorite');
+    }
 }
