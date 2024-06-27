@@ -69,4 +69,34 @@ class BookController extends Controller
     {
         //
     }
+
+    // AGGIUNGI/RIMUOVI PREFERITI
+    public function addToFavorites(Book $book)
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return redirect()->route('login'); // Gestisci l'utente non autenticato
+        }
+        $user->books()->syncWithoutDetaching([$book->id => ['is_favorite' => true]]);
+
+        return redirect()->back()->with('success', 'Book added to favorites.');
+    }
+
+    public function removeFromFavorites(Book $book)
+    {
+        $user = Auth::user();
+        $user->books()->updateExistingPivot($book->id, ['is_favorite' => false]);
+
+        return redirect()->back()->with('success', 'Book removed from favorites.');
+    }
+
+    // PAGINA DEI FAVORITI
+    public function favorites()
+    {
+        $user = Auth::user();
+        $favoriteBooks = $user->books()->wherePivot('is_favorite', true)->get();
+
+        return view('books.favorites', compact('favoriteBooks'));
+    }
 }

@@ -6,7 +6,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 
 //HomepageLaravel
-// Route::get('/', function () { return view('welcome'); });
+//Route::get('/', function () {return view('welcome');});
 
 // Rotta per la homepage principale che carica i libri
 Route::get('/', [BookController::class, 'index'])->name('home');
@@ -28,5 +28,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+//Preferiti
+Route::middleware(['auth'])->group(function () {
+    Route::post('/books/{book}/favorite', [BookController::class, 'addToFavorites'])->name('books.addToFavorites');
+    Route::post('/books/{book}/unfavorite', [BookController::class, 'removeFromFavorites'])->name('books.removeFromFavorites');
+    // visualizza preferiti
+    Route::get('/favorites', [BookController::class, 'favorites'])->name('books.favorites');
+});
+
 
 require __DIR__ . '/auth.php';
