@@ -9,7 +9,7 @@
                     <div class="card">
                         <div class="card-header">{{ $book->title }}</div>
                         <div class="card-body">
-                            <p>{{ $book->description }}</p>
+                            <p>{{ $book->id }}</p>
                             <form action="{{ route('books.removeFromFavorites', $book) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Rimuovi dai preferiti</button>

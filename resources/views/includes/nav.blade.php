@@ -36,6 +36,12 @@
                         </li>
                     @endif
                 @else
+                    {{-- favoriti --}}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ route('books.favorites') }}">Fav</a>
+                    </li>
+
+                    {{-- utente + logout --}}
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -73,30 +73,34 @@ class BookController extends Controller
     // AGGIUNGI/RIMUOVI PREFERITI
     public function addToFavorites(Book $book)
     {
-        $user = Auth::user();
+        $user = Auth::user(); // Ottiene l'utente autenticato
 
         if (!$user) {
-            return redirect()->route('login'); // Gestisci l'utente non autenticato
+            return redirect()->route('login'); // Reindirizza l'utente non autenticato alla pagina di login
         }
-        $user->books()->syncWithoutDetaching([$book->id => ['is_favorite' => true]]);
+        $user->books()->syncWithoutDetaching([$book->id => ['is_favorite' => true]]); // Aggiunge il libro ai preferiti dell'utente
+        //NB. syncWithoutDetaching è utilizzato nel contesto di relazioni many-to-many per aggiungere una relazione tra modelli senza rimuovere le altre relazioni esistenti che non sono esplicitamente indicate nella chiamata.
 
-        return redirect()->back()->with('success', 'Book added to favorites.');
+        return redirect()->back(); // Reindirizza indietro alla pagina precedente 
     }
 
+    // Funzione per rimuovere un libro dai preferiti dell'utente
     public function removeFromFavorites(Book $book)
     {
-        $user = Auth::user();
-        $user->books()->updateExistingPivot($book->id, ['is_favorite' => false]);
+        $user = Auth::user(); // Ottiene l'utente autenticato
+        //$user->books()->updateExistingPivot($book->id, ['is_favorite' => false]); // Aggiorna il valore 'is_favorite' a false per il libro specificato
+        $user->books()->detach($book->id); // Rimuove completamente la relazione dalla tabella ponte
 
-        return redirect()->back()->with('success', 'Book removed from favorites.');
+        return redirect()->back();
     }
 
     // PAGINA DEI FAVORITI
+    // visualizza la pagina dei libri preferiti dell'utente
     public function favorites()
     {
-        $user = Auth::user();
-        $favoriteBooks = $user->books()->wherePivot('is_favorite', true)->get();
+        $user = Auth::user(); // Ottiene l'utente autenticato
+        $favoriteBooks = $user->books()->wherePivot('is_favorite', true)->get(); // Ottiene tutti i libri dell'utente che sono contrassegnati come preferiti
 
-        return view('books.favorites', compact('favoriteBooks'));
+        return view('books.favorites', compact('favoriteBooks')); // Carica la vista 'books.favorites' passando l'elenco dei libri preferiti
     }
 }

@@ -34,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/books/{book}/favorite', [BookController::class, 'addToFavorites'])->name('books.addToFavorites');
     Route::post('/books/{book}/unfavorite', [BookController::class, 'removeFromFavorites'])->name('books.removeFromFavorites');
     // visualizza preferiti
+    //Route::get('/books/favorites', [BookController::class, 'favorites'])->name('books.favorites');
     Route::get('/favorites', [BookController::class, 'favorites'])->name('books.favorites');
 });
 
