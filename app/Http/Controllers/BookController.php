@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -78,8 +79,15 @@ class BookController extends Controller
         if (!$user) {
             return redirect()->route('login'); // Reindirizza l'utente non autenticato alla pagina di login
         }
-        $user->books()->syncWithoutDetaching([$book->id => ['is_favorite' => true]]); // Aggiunge il libro ai preferiti dell'utente
-        //NB. syncWithoutDetaching è utilizzato nel contesto di relazioni many-to-many per aggiungere una relazione tra modelli senza rimuovere le altre relazioni esistenti che non sono esplicitamente indicate nella chiamata.
+
+        // Verifica se il libro esiste già nella tabella pivot
+        if ($user->books()->where('book_id', $book->id)->exists()) {
+            // Se esiste, aggiorna solo il campo is_favorite
+            $user->books()->updateExistingPivot($book->id, ['is_favorite' => true]);
+        } else {
+            // Se non esiste, aggiungi il libro ai preferiti
+            $user->books()->attach($book->id, ['is_favorite' => true]);
+        }
 
         return redirect()->back(); // Reindirizza indietro alla pagina precedente 
     }
@@ -88,8 +96,7 @@ class BookController extends Controller
     public function removeFromFavorites(Book $book)
     {
         $user = Auth::user(); // Ottiene l'utente autenticato
-        //$user->books()->updateExistingPivot($book->id, ['is_favorite' => false]); // Aggiorna il valore 'is_favorite' a false per il libro specificato
-        $user->books()->detach($book->id); // Rimuove completamente la relazione dalla tabella ponte
+        $user->books()->updateExistingPivot($book->id, ['is_favorite' => false]); // Aggiorna il valore 'is_favorite' a false per il libro specificato
 
         return redirect()->back();
     }
@@ -100,7 +107,26 @@ class BookController extends Controller
     {
         $user = Auth::user(); // Ottiene l'utente autenticato
         $favoriteBooks = $user->books()->wherePivot('is_favorite', true)->get(); // Ottiene tutti i libri dell'utente che sono contrassegnati come preferiti
+        $alreadyRead = $user->books()->wherePivot('status', 'already_read')->get();
+        $reading = $user->books()->wherePivot('status', 'reading')->get();
+        $wantToRead = $user->books()->wherePivot('status', 'want_to_read')->get();
 
-        return view('books.favorites', compact('favoriteBooks')); // Carica la vista 'books.favorites' passando l'elenco dei libri preferiti
+        return view('books.favorites', compact('favoriteBooks', 'alreadyRead', 'reading', 'wantToRead')); // Carica la vista 'books.favorites' passando l'elenco dei libri preferiti
+    }
+
+    // AGGIORNARE STATUS DEL LIBRO
+    public function updateBookStatus(Request $request, Book $book)
+    {
+        $user = Auth::user();
+        $status = $request->input('status');
+
+        // Verifica se il libro esiste già nella tabella pivot, se no aggiungilo con il nuovo stato
+        if ($user->books()->where('book_id', $book->id)->exists()) {
+            $user->books()->updateExistingPivot($book->id, ['status' => $status]);
+        } else {
+            $user->books()->attach($book->id, ['status' => $status]);
+        }
+
+        return redirect()->back();
     }
 }
