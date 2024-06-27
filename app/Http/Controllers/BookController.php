@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use App\Models\Author;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -13,7 +15,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::select(['id', 'title', 'cover', 'author_id'])
+            ->take(6)  // Limita la query a 10 risultati
+            ->get();
+        $authors = Author::all(); //relazione uno a molti
+        return view('home', compact('books', 'authors'));
     }
 
     /**
@@ -37,7 +43,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('books.show', ['book' => $book]);
     }
 
     /**
