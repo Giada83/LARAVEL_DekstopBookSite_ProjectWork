@@ -4,13 +4,22 @@
 
 @section('content')
     <h1>BOOK DETAILS</h1>
-    {{-- Se ci sono errori di validazione da visualizzare --}}
-    {{-- @if ($existingReview)
-        {
-        @dd('Hai già lasciato una recensione per questo libro.');
-        return redirect()->back()->with('error', 'Hai già lasciato una recensione per questo libro.');
-        }
-    @endif --}}
+    {{-- errori --}}
+    @if (Session::has('review_error'))
+        <div class="alert alert-danger">
+            {{ Session::get('review_error') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     {{-- Se c'è un messaggio di successo da visualizzare --}}
     @if (session('success'))
