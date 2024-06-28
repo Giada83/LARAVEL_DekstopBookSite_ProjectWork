@@ -17,7 +17,7 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::select(['id', 'title', 'cover', 'author_id'])
-            ->take(6)  // Limita la query a 10 risultati
+            ->take(14)  // Limita la query a 10 risultati
             ->get();
         $authors = Author::all(); //relazione uno a molti
         return view('home', compact('books', 'authors'));
@@ -44,7 +44,12 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return view('books.show', ['book' => $book]);
+        //return view('books.show', ['book' => $book]);
+
+        // Recupera un libro specifico e tutte le recensioni associate a questo libro
+        $reviews = $book->reviews;
+
+        return view('books.show', compact('book', 'reviews'));
     }
 
     /**
@@ -99,8 +104,10 @@ class BookController extends Controller
         $user = Auth::user(); // Ottiene l'utente autenticato
         $user->books()->updateExistingPivot($book->id, ['is_favorite' => false]); // aggiorna il campo a false
 
-        // Controlla se lo stato è null, se sì, rimuove l'associazione
+        // Recupera tutti i dati pivot dell'associazione specifica
         $pivotData = $user->books()->where('book_id', $book->id)->first()->pivot;
+        // Controlla se lo stato è null, se sì, rimuove l'associazione
+        //!$pivotData->is_favorite = is_favorite non è vero = falsy | $pivotData->is_favorite === false
         if (!$pivotData->is_favorite && is_null($pivotData->status)) {
             $user->books()->detach($book->id);
         }
@@ -145,7 +152,7 @@ class BookController extends Controller
         // Aggiorna lo stato del libro a null o a un valore predefinito
         $user->books()->updateExistingPivot($book->id, ['status' => null]);
 
-        // Controlla se il libro non è nei preferiti, se sì, rimuove l'associazione
+        // Controlla se il libro non è nei preferiti e nel caso rimuove l'associazione
         $pivotData = $user->books()->where('book_id', $book->id)->first()->pivot;
         if (!$pivotData->is_favorite && is_null($pivotData->status)) {
             $user->books()->detach($book->id);

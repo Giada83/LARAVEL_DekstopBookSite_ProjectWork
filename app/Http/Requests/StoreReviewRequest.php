@@ -11,7 +11,7 @@ class StoreReviewRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true; // Permette a chiunque di utilizzare questa richiesta
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreReviewRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'book_id' => 'required|exists:books,id',
+            'rating' => 'required|integer|between:1,5',
+            'review' => 'required|string|max:1000',
         ];
     }
 }

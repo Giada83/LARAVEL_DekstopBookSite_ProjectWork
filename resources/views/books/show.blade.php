@@ -5,13 +5,32 @@
 @section('content')
     <h1>BOOK DETAILS</h1>
 
-    <div class="card" style="width: 18rem;">
+    {{-- Se ci sono errori da visualizzare --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    {{-- Se c'è un messaggio di successo da visualizzare --}}
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <div class="card mb-5" style="width: 25rem;">
         <img src="{{ $book->cover }}" class="card-img-top" alt="cover">
         <div class="card-body">
             <p class="card-title fs-6">id: {{ $book->id }}</p>
             <p class="card-title fs-6">titolo: {{ $book->title }}</p>
             <p class="card-text fs-6">autore: {{ $book->author->name }} {{ $book->author->surname }}</p>
 
+            {{-- Aggiunta dei pulsanti per i preferiti --}}
             <div class="card-body">
                 @if ($book->users()->where('user_id', auth()->id())->wherePivot('is_favorite', true)->exists())
                     <form action="{{ route('books.removeFromFavorites', $book) }}" method="POST">
@@ -26,7 +45,7 @@
                 @endif
             </div>
 
-            {{-- Aggiunta dei pulsanti per lo stato --}}
+            {{-- Aggiunta dei pulsanti per lo stato di lettura --}}
             <div class="mt-3">
                 <form action="{{ route('updateBookStatus', $book) }}" method="POST">
                     @csrf
@@ -43,7 +62,49 @@
                     </div>
                 </form>
             </div>
+
+            {{-- Sezione delle recensioni --}}
+            <h2 class="mt-3">Recensioni</h2>
+            @if ($reviews->count() > 0)
+                <div class="mt-4">
+                    <ul class="list-group">
+                        @foreach ($reviews as $review)
+                            <li class="list-group-item">
+                                <p><strong>Utente:</strong> {{ $review->user->name }}</p>
+                                <p><strong>Voto:</strong> {{ $review->rating }} SU 5</p>
+                                <p><strong>Commento:</strong> {{ $review->review }}</p>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @else
+                <p>Non ci sono recensioni per questo libro.</p>
+            @endif
         </div>
     </div>
+
+    {{-- Form per le recensioni --}}
+    {{-- Bottone per lasciare una recensione --}}
+    @auth
+        <div class="mt-4">
+            <form method="POST" action="{{ route('reviews.store') }}">
+                @csrf
+                <input type="hidden" name="book_id" value="{{ $book->id }}">
+                <div>
+                    <label for="rating">Rating (da 1 a 5):</label>
+                    <input type="number" name="rating" id="rating" min="1" max="5" required>
+                </div>
+                <div>
+                    <label for="review">Recensione:</label>
+                    <textarea name="review" id="review" rows="5" maxlength="1000" required></textarea>
+                </div>
+                <button type="submit">Invia recensione</button>
+            </form>
+        </div>
+    @endauth
+
+    @guest
+        <p class="mt-4">Per lasciare una recensione devi effettuare l'accesso.</p>
+    @endguest
 
 @endsection

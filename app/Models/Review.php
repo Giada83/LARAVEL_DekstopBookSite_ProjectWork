@@ -16,13 +16,13 @@ class Review extends Model
         'rating',
     ];
 
-    //Relazione uno a molti con User
+    // Relazione con l'utente che ha lasciato la recensione
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    //Relazione uno a molti con Book
+    // Relazione con il libro recensito
     public function book()
     {
         return $this->belongsTo(Book::class);

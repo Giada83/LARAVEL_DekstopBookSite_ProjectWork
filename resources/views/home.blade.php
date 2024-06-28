@@ -12,6 +12,7 @@
                     <div class="card">
                         <img src="{{ $book->cover }}" class="card-img-top" alt="cover">
                         <div class="card-body">
+                            <p class="card-title fs-6">{{ $book->id }}</p>
                             <p class="card-title fs-6">{{ $book->title }}</p>
                             <p class="card-text fs-6">{{ $book->author->name }} {{ $book->author->surname }}</p>
                         </div>
