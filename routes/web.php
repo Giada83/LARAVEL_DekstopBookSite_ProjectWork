@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//Preferiti
+//Preferiti e stati di lettura
 Route::middleware(['auth'])->group(function () {
     Route::post('/books/{book}/favorite', [BookController::class, 'addToFavorites'])->name('books.addToFavorites');
     Route::post('/books/{book}/unfavorite', [BookController::class, 'removeFromFavorites'])->name('books.removeFromFavorites');
@@ -37,6 +37,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/favorites', [BookController::class, 'favorites'])->name('books.favorites');
     //aggionare lo stato del libro
     Route::post('/books/{book}/update-status', [BookController::class, 'updateBookStatus'])->name('updateBookStatus');
+    //rimuovere lo stato del libro
+    Route::post('/books/{book}/remove-status', [BookController::class, 'removeBookStatus'])->name('books.removeBookStatus');
 });
 
 

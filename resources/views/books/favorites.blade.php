@@ -36,6 +36,11 @@
                             <div class="card-body">
                                 <p>ID: {{ $book->id }}</p>
                                 <!-- Aggiungi qui il form per aggiornare lo stato se necessario -->
+                                <!-- Bottone per rimuovere lo stato -->
+                                <form action="{{ route('books.removeBookStatus', $book->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit">Rimuovi Stato</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -54,6 +59,11 @@
                             <div class="card-body">
                                 <p>ID: {{ $book->id }}</p>
                                 <!-- Aggiungi qui il form per aggiornare lo stato se necessario -->
+                                <!-- Bottone per rimuovere lo stato -->
+                                <form action="{{ route('books.removeBookStatus', $book->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit">Rimuovi Stato</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -72,6 +82,11 @@
                             <div class="card-body">
                                 <p>ID: {{ $book->id }}</p>
                                 <!-- Aggiungi qui il form per aggiornare lo stato se necessario -->
+                                <!-- Bottone per rimuovere lo stato -->
+                                <form action="{{ route('books.removeBookStatus', $book->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit">Rimuovi Stato</button>
+                                </form>
                             </div>
                         </div>
                     </div>

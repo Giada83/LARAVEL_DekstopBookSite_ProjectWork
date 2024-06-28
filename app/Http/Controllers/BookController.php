@@ -129,4 +129,15 @@ class BookController extends Controller
 
         return redirect()->back();
     }
+
+    // RIMUOVERE LO STATO DEL LIBRO
+    public function removeBookStatus(Book $book)
+    {
+        $user = Auth::user();
+
+        // Aggiorna lo stato del libro a null o a un valore predefinito
+        $user->books()->updateExistingPivot($book->id, ['status' => null]);
+
+        return redirect()->back();
+    }
 }
