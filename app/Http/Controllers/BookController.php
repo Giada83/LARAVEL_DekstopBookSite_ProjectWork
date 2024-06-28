@@ -72,6 +72,7 @@ class BookController extends Controller
     }
 
     // AGGIUNGI/RIMUOVI PREFERITI
+    //aggiugnere un preferito
     public function addToFavorites(Book $book)
     {
         $user = Auth::user(); // Ottiene l'utente autenticato
@@ -96,7 +97,13 @@ class BookController extends Controller
     public function removeFromFavorites(Book $book)
     {
         $user = Auth::user(); // Ottiene l'utente autenticato
-        $user->books()->updateExistingPivot($book->id, ['is_favorite' => false]); // Aggiorna il valore 'is_favorite' a false per il libro specificato
+        $user->books()->updateExistingPivot($book->id, ['is_favorite' => false]); // aggiorna il campo a false
+
+        // Controlla se lo stato è null, se sì, rimuove l'associazione
+        $pivotData = $user->books()->where('book_id', $book->id)->first()->pivot;
+        if (!$pivotData->is_favorite && is_null($pivotData->status)) {
+            $user->books()->detach($book->id);
+        }
 
         return redirect()->back();
     }
@@ -137,6 +144,12 @@ class BookController extends Controller
 
         // Aggiorna lo stato del libro a null o a un valore predefinito
         $user->books()->updateExistingPivot($book->id, ['status' => null]);
+
+        // Controlla se il libro non è nei preferiti, se sì, rimuove l'associazione
+        $pivotData = $user->books()->where('book_id', $book->id)->first()->pivot;
+        if (!$pivotData->is_favorite && is_null($pivotData->status)) {
+            $user->books()->detach($book->id);
+        }
 
         return redirect()->back();
     }
