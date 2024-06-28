@@ -17,12 +17,10 @@ class ReviewController extends Controller
     }
 
     public function store(StoreReviewRequest $request)
-    {   // 1. Il form request `StoreReviewRequest` esegue automaticamente le regole di validazione.
-        //Se le regole non sono rispettate, Laravel gestirà il reindirizzamento automaticamente.
+    {   // Il form request `StoreReviewRequest` esegue automaticamente le regole di validazione.
 
         // Controlla se l'utente ha già una recensione per questo libro
         $existingReview = $request->user()->reviews()->where('book_id', $request->input('book_id'))->first();
-
         if ($existingReview) {
             Session::flash('review_error', 'Hai già inviato una recensione per questo libro.');
             return redirect()->back();
@@ -53,7 +51,9 @@ class ReviewController extends Controller
      */
     public function edit(Review $review)
     {
-        //
+        $this->authorize('update', $review); // Autorizzazione per verificare che l'utente possa modificare la recensione
+
+        return view('reviews.edit', compact('review'));
     }
 
     /**
@@ -61,7 +61,21 @@ class ReviewController extends Controller
      */
     public function update(UpdateReviewRequest $request, Review $review)
     {
-        //
+
+        $this->authorize('update', $review);
+        // Autorizzazione per verificare che l'utente possa modificare la recensione
+        //1. aggiunte autorizzazioni alla policy
+        //2. registrata la policy nell'AuthServiceProvider
+        //3. cambiato in 'true' lo StoreReviewRequest
+
+        $validated = $request->validate([
+            'review' => 'required|string',
+            'rating' => 'required|integer|min:1|max:5',
+        ]);
+
+        $review->update($validated);
+
+        return redirect()->route('user.reviews')->with('updRev_success', 'Recensione aggiornata con successo!');
     }
 
     /**
