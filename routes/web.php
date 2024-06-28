@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 
@@ -21,6 +22,7 @@ Route::resource('books', BookController::class)->except('index');
 Route::middleware('auth')->group(function () {
     //Rotte per il model Review - esculsa la index
     Route::resource('reviews', ReviewController::class)->except('index');
+    Route::get('/user/reviews', [UserController::class, 'userReviews'])->name('user.reviews'); //recensioni utente
 });
 
 // Dashboard

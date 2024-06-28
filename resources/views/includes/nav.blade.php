@@ -40,6 +40,10 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ route('books.favorites') }}">Fav</a>
                     </li>
+                    {{-- recensioni --}}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ route('user.reviews') }}">Rew</a>
+                    </li>
 
                     {{-- utente + logout --}}
                     <li class="nav-item dropdown">

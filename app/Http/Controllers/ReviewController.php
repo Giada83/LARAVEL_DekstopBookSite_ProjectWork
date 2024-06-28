@@ -9,44 +9,41 @@ use App\Http\Requests\UpdateReviewRequest;
 
 class ReviewController extends Controller
 {
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreReviewRequest $request)
-    {
-        // Verifica se l'utente è autenticato
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Devi effettuare il login per lasciare una recensione.');
-        }
+    {   // Il form request `StoreReviewRequest` esegue automaticamente le regole di validazione.
+        // Se le regole non sono rispettate, Laravel gestirà il reindirizzamento automaticamente.
 
         // Verifica se l'utente ha già lasciato una recensione per questo libro
-        $userId = auth()->user()->id;
-        $bookId = $request->input('book_id');
+        $userId = auth()->user()->id;  // Ottiene l'ID dell'utente autenticato
+        $bookId = $request->input('book_id');  // Ottiene l'ID del libro dalla richiesta
 
+        // Query per verificare se esiste già una recensione per questo utente e libro
         $existingReview = Review::where('user_id', $userId)
             ->where('book_id', $bookId)
             ->exists();
 
+        // Se esiste già una recensione, reindirizza indietro con un messaggio di errore
         if ($existingReview) {
             return redirect()->back()->with('error', 'Hai già lasciato una recensione per questo libro.');
         }
 
-        // Creazione della recensione
-        $review = new Review();
-        $review->user_id = auth()->user()->id; // Ottiene l'id dell'utente autenticato
-        $review->book_id = $request->input('book_id');
-        $review->rating = $request->input('rating');
-        $review->review = $request->input('review');
-        $review->save();
+        // Creazione di una nuova istanza di Review
+        $review = new Review([
+            'book_id' => $request->input('book_id'),
+            'review' => $request->input('review'),
+            'rating' => $request->input('rating'),
+        ]);
 
+        // Salvataggio della recensione associata all'utente autenticato
+        $request->user()->reviews()->save($review);
+
+        // Redirect con messaggio di successo
         return redirect()->back()->with('success', 'Recensione aggiunta con successo!');
     }
 
