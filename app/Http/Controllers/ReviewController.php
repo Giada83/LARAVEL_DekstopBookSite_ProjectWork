@@ -62,18 +62,14 @@ class ReviewController extends Controller
     public function update(UpdateReviewRequest $request, Review $review)
     {
 
-        $this->authorize('update', $review);
-        // Autorizzazione per verificare che l'utente possa modificare la recensione
-        //1. aggiunte autorizzazioni alla policy
-        //2. registrata la policy nell'AuthServiceProvider
-        //3. cambiato in 'true' lo StoreReviewRequest
+        // Validazione dei dati trammite UpdateReviewRequest
 
-        $validated = $request->validate([
-            'review' => 'required|string',
-            'rating' => 'required|integer|min:1|max:5',
-        ]);
+        // Aggiorna i campi della recensione con i dati validati
+        $review->review = $request->input('review');
+        $review->rating = $request->input('rating');
 
-        $review->update($validated);
+        // Salva la recensione aggiornata
+        $review->save();
 
         return redirect()->route('user.reviews')->with('updRev_success', 'Recensione aggiornata con successo!');
     }
