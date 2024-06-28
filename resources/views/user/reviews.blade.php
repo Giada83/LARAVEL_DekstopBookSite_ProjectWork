@@ -11,6 +11,16 @@
             </div>
         @endif
 
+        <!-- avvenuta eliminazione -->
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('bookId'))
+            <p>ID del libro eliminato: {{ session('bookId') }}</p>
+        @endif
+
         @if ($reviews->isEmpty())
             <p>Non hai ancora scritto nessuna recensione.</p>
         @else
@@ -24,10 +34,12 @@
                     </li>
 
                     <a href="{{ route('reviews.edit', $review) }}">Modifica</a>
+
                     <form action="{{ route('reviews.destroy', $review) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit">Elimina</button>
+                        <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Sei sicuro di voler eliminare questo film?')">Elimina</button>
                     </form>
 
                     <hr>

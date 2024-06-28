@@ -61,8 +61,9 @@ class ReviewController extends Controller
      */
     public function update(UpdateReviewRequest $request, Review $review)
     {
-
-        // Validazione dei dati trammite UpdateReviewRequest
+        // 1.Salvataggio autorizzazione utente nella policy
+        // 2.Registrazione della policy in AuthServiceProvider
+        // 3.Validazione dei dati tramite UpdateReviewRequest
 
         // Aggiorna i campi della recensione con i dati validati
         $review->review = $request->input('review');
@@ -79,6 +80,12 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        $bookId = $review->book_id;
+
+        $review->delete();
+
+        return redirect()->route('user.reviews')
+            ->with('success', 'Recensione eliminata con successo!')
+            ->with('bookId', $bookId);
     }
 }
