@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreBookRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateBookRequest;
 
 class BookController extends Controller
@@ -18,12 +19,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::select(['id', 'title', 'cover', 'author_id'])
-            ->take(20)  // Limita la query a 10 risultati
-            ->get();
-        $authors = Author::all(); //relazione uno a molti
-        $categories = Category::all();
-        return view('home', compact('books', 'authors', 'categories'));
+        $books = Book::with('author', 'categories')->get();
+        return view('books.index', compact('books'));
     }
 
     /**
@@ -102,7 +99,15 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        if ($book->cover) {
+            Storage::delete($book->cover);
+        }
+
+        $book->categories()->detach();
+
+        $book->delete();
+
+        return redirect()->route('books.index')->with('success', 'Book deleted successfully');
     }
 
     // AGGIUNGI/RIMUOVI PREFERITI

@@ -11,13 +11,12 @@ use App\Http\Controllers\ProfileController;
 //Route::get('/', function () {return view('welcome');});
 
 // Rotta per la homepage principale che carica i libri
-Route::get('/', [BookController::class, 'index'])->name('home');
+Route::get('/', [PageController::class, 'home'])->name('home');
 // Rotte di reindirizzamento 
 Route::redirect('/home', '/');
-Route::redirect('/books', '/');
 
-// Rotte per il model Book - esclusa la index
-Route::resource('books', BookController::class)->except('index');
+// Rotte per il model Book 
+Route::resource('books', BookController::class);
 
 Route::middleware('auth')->group(function () {
     //Rotte per il model Review - esculsa la index
