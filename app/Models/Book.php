@@ -10,6 +10,15 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'author_id',
+        'title',
+        'cover',
+        'description',
+        'year',
+        'language',
+    ];
+
     //Relazione uno a molti con Author
     public function author(): BelongsTo //appartiene a
     {

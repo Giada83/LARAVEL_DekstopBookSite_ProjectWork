@@ -11,7 +11,7 @@ class StoreBookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,17 @@ class StoreBookRequest extends FormRequest
      */
     public function rules(): array
     {
+        $currentYear = date('Y');
         return [
-            //
+            'author_id' => 'required|exists:authors,id',
+            'title' => 'required|string|max:100',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|string|min:150|max:1000',
+            'year' => 'required|integer|min:1800|max:' . $currentYear,
+            'language' => 'required|string|min:2|max:50',
+            // categorie
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
         ];
     }
 }

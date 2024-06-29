@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('author_id')->constrained()->onDelete('cascade');
             $table->string('title', 100);
-            $table->string('cover');
+            $table->string('cover')->nullable();
             $table->text('description');
             $table->smallInteger('year')->unsigned();
             $table->string('language', 50);

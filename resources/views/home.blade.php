@@ -13,6 +13,7 @@
                 <a href="{{ route('books.show', ['book' => $book->id]) }}" class="card-link">
                     <div class="card">
                         <img src="{{ $book->cover }}" class="card-img-top" alt="cover">
+                        {{-- <img src="{{ Storage::url($book->cover) }}" class="card-img-top" alt="cover"> --}}
                         <div class="card-body">
                             <p class="card-title">Id: {{ $book->id }}</p>
                             <p class="card-title fw-semibold">{{ $book->title }}</p>

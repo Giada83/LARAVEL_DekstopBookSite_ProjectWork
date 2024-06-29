@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
 use App\Models\Category;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 
 class BookController extends Controller
 {
@@ -18,7 +19,7 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::select(['id', 'title', 'cover', 'author_id'])
-            ->take(14)  // Limita la query a 10 risultati
+            ->take(20)  // Limita la query a 10 risultati
             ->get();
         $authors = Author::all(); //relazione uno a molti
         $categories = Category::all();
@@ -30,7 +31,9 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $authors = Author::all();
+        $categories = Category::all();
+        return view('books.create', compact('authors', 'categories'));
     }
 
     /**
@@ -38,7 +41,31 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+        // Gestione dell'immagine di copertina
+        if ($request->hasFile('cover')) {
+            $coverFile = $request->file('cover');
+            $coverPath = 'covers/' . Str::uuid() . '.' . $coverFile->getClientOriginalExtension();
+
+            // Salva il file rinominato nella cartella pubblica
+            $coverPath = $coverFile->storePubliclyAs('public', $coverPath);
+        } else {
+            $coverPath = null;
+        }
+
+        // Crea un nuovo libro con i dati del form
+        $book = Book::create([
+            'author_id' => $request->input('author_id'),
+            'title' => $request->input('title'),
+            'cover' => $coverPath,
+            'description' => $request->input('description'),
+            'year' => $request->input('year'),
+            'language' => $request->input('language'),
+        ]);
+
+        // Gestione delle categorie
+        $book->categories()->sync($request->input('categories'));
+
+        return redirect()->route('books.create')->with('success', 'Book added successfully');
     }
 
     /**
