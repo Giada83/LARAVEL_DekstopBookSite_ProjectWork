@@ -3,7 +3,9 @@
 @section('title', 'Welcome')
 
 @section('content')
-    <h1>WELCOME</h1>
+    <h1>
+        WELCOME</h1>
+    {{-- @dd($categories) --}}
 
     <div class="row g-1">
         @foreach ($books as $book)
@@ -12,9 +14,17 @@
                     <div class="card">
                         <img src="{{ $book->cover }}" class="card-img-top" alt="cover">
                         <div class="card-body">
-                            <p class="card-title fs-6">{{ $book->id }}</p>
-                            <p class="card-title fs-6">{{ $book->title }}</p>
-                            <p class="card-text fs-6">{{ $book->author->name }} {{ $book->author->surname }}</p>
+                            <p class="card-title">Id: {{ $book->id }}</p>
+                            <p class="card-title fw-semibold">{{ $book->title }}</p>
+                            <p class="card-text">By: {{ $book->author->name }} {{ $book->author->surname }}</p>
+                            <p class="card-text">
+                                Category: @foreach ($book->categories as $category)
+                                    {{ $category->name }}
+                                    @unless ($loop->last)
+                                        ,
+                                    @endunless
+                                @endforeach
+                            </p>
                         </div>
                     </div>
                 </a>

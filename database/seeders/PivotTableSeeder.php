@@ -15,11 +15,13 @@ class PivotTableSeeder extends Seeder
     public function run(): void
     {
         // Generazione dati per book_category
-        $books = Book::factory()->count(2)->create();
-        $categories = Category::all()->random(2);
+        //$books = Book::factory()->count(14)->create();
+        $books = Book::whereBetween('id', [1, 20])->get();
+        $allCategories = Category::all();
 
         foreach ($books as $book) {
-            $book->categories()->attach($categories);
+            $randomCategories = $allCategories->random(rand(1, 3));
+            $book->categories()->attach($randomCategories);
         }
 
         // Generazione dati per book_user

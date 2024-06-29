@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Models\Author;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -20,7 +21,8 @@ class BookController extends Controller
             ->take(14)  // Limita la query a 10 risultati
             ->get();
         $authors = Author::all(); //relazione uno a molti
-        return view('home', compact('books', 'authors'));
+        $categories = Category::all();
+        return view('home', compact('books', 'authors', 'categories'));
     }
 
     /**
