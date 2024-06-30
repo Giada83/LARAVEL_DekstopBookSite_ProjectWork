@@ -42,8 +42,15 @@
                     <td>{{ Str::limit($book->title, 20) }}</td>
                     <td>
                         @if ($book->cover)
-                            <img src="{{ $book->cover }}" alt="no cover found" style="width: 50px;">
-                            {{-- <img src="{{ Storage::url($book->cover) }}" alt="{{ $book->title }}" style="width: 50px;"> --}}
+                            {{-- Se $book->cover è un URL di un'immagine --}}
+                            @if (filter_var($book->cover, FILTER_VALIDATE_URL))
+                                <img src="{{ $book->cover }}" alt="Cover Image" style="width: 50px;">
+                            @else
+                                {{-- Se $book->cover è un percorso nel filesystem --}}
+                                <img src="{{ Storage::url($book->cover) }}" alt="{{ $book->title }}" style="width: 50px;">
+                            @endif
+                        @else
+                            <span>No cover found</span>
                         @endif
                     </td>
                     <td>{{ Str::limit($book->description, 20) }}</td>

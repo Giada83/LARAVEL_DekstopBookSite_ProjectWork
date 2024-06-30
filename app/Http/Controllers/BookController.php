@@ -37,6 +37,7 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
+        // Gestione dell'immagine di copertina
         if ($request->hasFile('cover')) {
             $coverFile = $request->file('cover');
             // $coverPath = 'covers/' . Str::uuid() . '.' . $coverFile->getClientOriginalExtension();
