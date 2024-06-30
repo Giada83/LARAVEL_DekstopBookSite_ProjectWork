@@ -57,4 +57,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
+
+    //Relazione molti a molti con Badge
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class, 'badge_user')->withTimestamps();
+    }
 }

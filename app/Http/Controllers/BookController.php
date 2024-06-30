@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Author;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Events\BookFavorited;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreBookRequest;
 use Illuminate\Support\Facades\Storage;
@@ -159,6 +160,9 @@ class BookController extends Controller
             // Se non esiste, aggiungi il libro ai preferiti
             $user->books()->attach($book->id, ['is_favorite' => true]);
         }
+
+        // Trigger dell'evento BookFavorited
+        event(new BookFavorited($user));
 
         return redirect()->back(); // Reindirizza indietro alla pagina precedente 
     }

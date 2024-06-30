@@ -7,6 +7,7 @@
         WELCOME</h1>
     {{-- @dd($categories) --}}
 
+
     <div class="row g-1">
         @foreach ($books as $book)
             <div class="col-2">

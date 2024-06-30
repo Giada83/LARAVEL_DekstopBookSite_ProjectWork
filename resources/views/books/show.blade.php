@@ -4,6 +4,13 @@
 
 @section('content')
     <h1>BOOK DETAILS</h1>
+    {{-- badge --}}
+    @if (session('badge_message'))
+        <div class="alert alert-success" role="alert">
+            {{ session('badge_message') }}
+        </div>
+    @endif
+
     {{-- errori --}}
     @if (Session::has('review_error'))
         <div class="alert alert-danger">
