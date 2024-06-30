@@ -16,9 +16,9 @@
                         Dropdown link
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">1</a></li>
-                        <li><a class="dropdown-item" href="#">2</a></li>
-                        <li><a class="dropdown-item" href="#">3</a></li>
+                        <li><a class="dropdown-item" href="#">Dropdown Item 1</a></li>
+                        <li><a class="dropdown-item" href="#">Dropdown Item 2</a></li>
+                        <li><a class="dropdown-item" href="#">Dropdown Item 3</a></li>
                     </ul>
                 </li>
             </ul>
@@ -36,43 +36,33 @@
                         </li>
                     @endif
                 @else
-                    {{-- favoriti --}}
+                    {{-- Favorites --}}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('books.favorites') }}">Fav</a>
+                        <a class="nav-link active" aria-current="page" href="{{ route('books.favorites') }}">Favorites</a>
                     </li>
-                    {{-- recensioni --}}
+                    {{-- Reviews --}}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('user.reviews') }}">Rew</a>
+                        <a class="nav-link active" aria-current="page" href="{{ route('user.reviews') }}">Reviews</a>
                     </li>
 
-                    <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-
-                    {{-- utente + logout --}}
+                    {{-- User Dropdown --}}
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ Auth::user()->name }}
                         </a>
 
-                        {{-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
+                                onclick="event.preventDefault(); document.getElementById('logout-form-navbar').submit();">
                                 {{ __('Logout') }}
                             </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            <form id="logout-form-navbar" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
                                 @csrf
                             </form>
-                        </div> --}}
+                        </div>
                     </li>
                 @endguest
             </ul>
