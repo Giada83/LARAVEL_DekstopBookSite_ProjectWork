@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Author;
 use App\Models\Category;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreBookRequest;
@@ -38,10 +37,12 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        // Gestione dell'immagine di copertina
         if ($request->hasFile('cover')) {
             $coverFile = $request->file('cover');
-            $coverPath = 'covers/' . Str::uuid() . '.' . $coverFile->getClientOriginalExtension();
+            // $coverPath = 'covers/' . Str::uuid() . '.' . $coverFile->getClientOriginalExtension();
+            $timestamp = now()->format('Ymd_His_u'); // Formato con microsecondi
+            $extension = $coverFile->getClientOriginalExtension();
+            $coverPath = "covers/{$timestamp}_bookcover.{$extension}";
 
             // Salva il file rinominato nella cartella pubblica
             $coverPath = $coverFile->storePubliclyAs('public', $coverPath);
@@ -49,7 +50,6 @@ class BookController extends Controller
             $coverPath = null;
         }
 
-        // Crea un nuovo libro con i dati del form
         $book = Book::create([
             'author_id' => $request->input('author_id'),
             'title' => $request->input('title'),
@@ -62,7 +62,7 @@ class BookController extends Controller
         // Gestione delle categorie
         $book->categories()->sync($request->input('categories'));
 
-        return redirect()->route('books.create')->with('success', 'Book added successfully');
+        return redirect()->route('books.index')->with('success', 'Book added successfully');
     }
 
     /**
@@ -70,8 +70,6 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //return view('books.show', ['book' => $book]);
-
         // Recupera un libro specifico e tutte le recensioni associate a questo libro
         $reviews = $book->reviews;
 
@@ -83,7 +81,9 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        $authors = Author::all();
+        $categories = Category::all();
+        return view('books.edit', compact('book', 'authors', 'categories'));
     }
 
     /**
@@ -91,7 +91,37 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+        if ($request->hasFile('cover')) {
+            // Rimuovere il vecchio file di copertina, se esiste
+            if ($book->cover) {
+                Storage::delete($book->cover);
+            }
+
+            $coverFile = $request->file('cover');
+            $timestamp = now()->format('Ymd_His_u'); // Formato con microsecondi
+            $extension = $coverFile->getClientOriginalExtension();
+            $coverPath = "covers/{$timestamp}_bookcover.{$extension}";
+
+            // Salva il file rinominato nella cartella pubblica
+            $coverPath = $coverFile->storePubliclyAs('public', $coverPath);
+        } else {
+            $coverPath = $book->cover;
+        }
+
+        // Aggiornare le informazioni del libro
+        $book->update([
+            'author_id' => $request->input('author_id'),
+            'title' => $request->input('title'),
+            'cover' => $coverPath,
+            'description' => $request->input('description'),
+            'year' => $request->input('year'),
+            'language' => $request->input('language'),
+        ]);
+
+        // Gestione delle categorie
+        $book->categories()->sync($request->input('categories'));
+
+        return redirect()->route('books.index')->with('success', 'Book updated successfully');
     }
 
     /**
