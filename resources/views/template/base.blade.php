@@ -6,9 +6,7 @@
 </header>
 
 <body>
-    <div class="container">
-        @yield('content')
-    </div>
+    @yield('content')
 
     @include('partials.script')
 

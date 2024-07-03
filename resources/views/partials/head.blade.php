@@ -16,4 +16,5 @@
     {{-- Additional styles --}}
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/nav_header.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
 </head>

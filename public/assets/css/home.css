@@ -1,0 +1,20 @@
+.title-section {
+    background-color: #f5e8df;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+}
+
+.bi-dot {
+    color: #64a199;
+    font-size: 1.3rem;
+}
+
+/* span */
+.rectangle {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #64a199;
+    /* background-color: #f2a007; */
+}

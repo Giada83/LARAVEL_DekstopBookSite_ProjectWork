@@ -4,8 +4,9 @@
             <div class="col-md-6 header-text mt-4 text-white">
                 {{-- testo --}}
                 <p>Expand your mind, reading a book</p>
-                <p>Reading books is a wonderful way to spend your time. Create an account and start building your
-                    personal library. Make a wishlist, organize your reading schedule, and earn achievements.
+                <p>Reading books is a wonderful way to spend your time.
+                    Create an account and start building your personal library.
+                    Make a wishlist, organize your reading schedule, and earn achievements.
                 </p>
 
                 {{-- barra di ricerca --}}
@@ -31,15 +32,16 @@
                 </div>
 
                 {{-- Bottoni --}}
-                <div class="mt-4">
-                    <button class="button">
-                        <span class="button-content fw-normal">Join for free</span>
-                    </button>
-
-                    <button class="button yellow ms-3">
-                        <span class="button-content fw-normal">Browse book</span>
-                    </button>
-                </div>
+                @guest
+                    <div class="mt-4">
+                        <button class="button" onclick="window.location.href='{{ route('register') }}'">
+                            <span class="button-content fw-normal">Join for free</span>
+                        </button>
+                        <button class="button yellow ms-3">
+                            <span class="button-content fw-normal">Browse book</span>
+                        </button>
+                    </div>
+                @endguest
             </div>
 
             {{-- immagine --}}
@@ -49,7 +51,6 @@
                         class="img-fluid">
                 </div>
             </div>
-
         </div>
     </div>
 </div>
