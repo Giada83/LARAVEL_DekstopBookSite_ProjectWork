@@ -3,12 +3,11 @@
 @section('title', 'Welcome')
 
 @section('content')
-    <h1>
-        WELCOME</h1>
+
     {{-- @dd($categories) --}}
 
 
-    <div class="row g-1">
+    <div class="row g-1 mt-5">
         @foreach ($books as $book)
             <div class="col-2">
                 <a href="{{ route('books.show', ['book' => $book->id]) }}" class="card-link">

@@ -1,0 +1,55 @@
+<div class="header-section">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-6 header-text mt-4 text-white">
+                {{-- testo --}}
+                <p>Expand your mind, reading a book</p>
+                <p>Reading books is a wonderful way to spend your time. Create an account and start building your
+                    personal library. Make a wishlist, organize your reading schedule, and earn achievements.
+                </p>
+
+                {{-- barra di ricerca --}}
+                <div class="mt-4">
+                    <form class="form">
+                        <button>
+                            <svg width="20" height="19" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                role="img" aria-labelledby="search">
+                                <path
+                                    d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+                                    stroke="currentColor" stroke-width="1.333" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg>
+                        </button>
+                        <input class="input" placeholder="Search books" required="" type="text">
+                        <button class="reset" type="reset">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+                {{-- Bottoni --}}
+                <div class="mt-4">
+                    <button class="button">
+                        <span class="button-content fw-normal">Join for free</span>
+                    </button>
+
+                    <button class="button yellow ms-3">
+                        <span class="button-content fw-normal">Browse book</span>
+                    </button>
+                </div>
+            </div>
+
+            {{-- immagine --}}
+            <div class="col-md-6">
+                <div>
+                    <img src="{{ asset('assets/image/bookheader.png') }}" alt="woman that read a book"
+                        class="img-fluid">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
