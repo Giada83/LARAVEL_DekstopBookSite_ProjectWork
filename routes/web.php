@@ -7,8 +7,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 
-//HomepageLaravel
-//Route::get('/', function () {return view('welcome');});
+//prova layout
+Route::get('/prova', function () {
+    return view('prova');
+});
 
 // Rotta per la homepage principale che carica i libri
 Route::get('/', [PageController::class, 'home'])->name('home');
