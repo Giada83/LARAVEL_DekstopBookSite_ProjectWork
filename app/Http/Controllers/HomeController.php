@@ -25,8 +25,11 @@ class HomeController extends Controller
             ->take(5)
             ->get();
 
+        // libri con votazione media più alta
+        $topRatedBooks = Book::withAvg('reviews', 'rating')->orderBy('reviews_avg_rating', 'desc')->take(5)->get();
+
         return view('home', [
-            'latestBooks' => $latestBooks
+            'latestBooks' => $latestBooks, 'topRatedBooks' => $topRatedBooks
         ]);
     }
 }

@@ -18,8 +18,8 @@ class PivotTableSeeder extends Seeder
         $books = Book::all();
         $categories = Category::all();
         foreach ($books as $book) {
-            // Seleziona un numero casuale (da 1 a 3) di categorie
-            $randomCategories = $categories->random(rand(1, 3));
+            // Seleziona un numero casuale (da 1 a 2) di categorie
+            $randomCategories = $categories->random(rand(1, 2));
             // Associa queste categorie al libro utilizzando la tabella pivot
             $book->categories()->sync($randomCategories);
         }

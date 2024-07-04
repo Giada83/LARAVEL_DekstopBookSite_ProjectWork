@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title', 100);
             $table->string('cover')->nullable();
             $table->text('description');
-            $table->smallInteger('year')->unsigned();
+            $table->year('year');
             $table->string('language', 50);
             $table->timestamps();
         });
