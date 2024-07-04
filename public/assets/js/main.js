@@ -1,4 +1,4 @@
-// navbar che cambia colore con altezza calcolata automaticamente
+// navbar che cambia colore
 document.addEventListener("DOMContentLoaded", function () {
     var navbar = document.querySelector(".custom-navbar");
 

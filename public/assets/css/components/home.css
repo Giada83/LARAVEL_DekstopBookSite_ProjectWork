@@ -1,0 +1,23 @@
+.title-section {
+    background-color: #f5e8df;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+}
+
+.bi-dot {
+    font-size: 1.3rem; /* Dimensione del font dei pallini */
+    line-height: inherit; /* Eredità dell'altezza di riga dal testo circostante */
+    vertical-align: middle; /* Allineamento verticale al centro rispetto al testo */
+    color: #64a199; /* Colore dei pallini, se necessario */
+    /* margin-right: 10px; Margine destro per separare i pallini dal testo */
+}
+
+/* h1 | span */
+.rectangle {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #64a199;
+    margin-bottom: 0.5rem;
+}
