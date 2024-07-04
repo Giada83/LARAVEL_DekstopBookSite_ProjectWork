@@ -2,7 +2,6 @@
 
 <header>
     @include('includes.navbar')
-    @include('includes.header_section')
 </header>
 
 <body>

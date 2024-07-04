@@ -35,12 +35,13 @@
                 @guest
                     <div class="mt-4">
                         <button class="button" onclick="window.location.href='{{ route('register') }}'">
-                            <span class="button-content fw-normal">Join for free</span>
+                            <a href="{{ route('login') }}"><span class="button-content fw-normal">Join for free</span></a>
                         </button>
-                        <button class="button yellow ms-3">
-                            <span class="button-content fw-normal">Browse book</span>
-                        </button>
-                    </div>
+                        <button class="button yellow ms-3" ">
+                                        <a href="{{ route('home.index') }}"><span class="button-content fw-normal">Browse
+                                    book</span></a>
+                                </button>
+                            </div>
                 @endguest
             </div>
 

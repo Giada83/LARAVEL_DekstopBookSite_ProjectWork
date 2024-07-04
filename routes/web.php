@@ -14,6 +14,7 @@ Route::get('/prova', function () {
 
 // Rotta per la homepage principale che carica i libri
 Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/home/books', [HomeController::class, 'index'])->name('home.index');
 // Rotte di reindirizzamento 
 Route::redirect('/home', '/');
 

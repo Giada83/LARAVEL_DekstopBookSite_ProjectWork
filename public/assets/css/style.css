@@ -12,7 +12,7 @@ body {
     /* background-color: #f7f8f9; */
     background-color: #f5f5f5;
     font-family: "Poppins", sans-serif;
-    color: rgb(46, 46, 46);
+
     font-weight: 400;
     font-size: 1rem;
 }
@@ -38,4 +38,9 @@ h5 {
 
 .text-yellow {
     color: #f2a007;
+}
+
+body,
+a {
+    color: rgb(46, 46, 46);
 }

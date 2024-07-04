@@ -147,7 +147,6 @@ input:not(:placeholder-shown) ~ .reset {
     border-radius: 1.5rem;
     background: #fc6681;
     background-size: 400%;
-    color: #fff;
     border: none;
     cursor: pointer;
 }
@@ -181,5 +180,10 @@ input:not(:placeholder-shown) ~ .reset {
         rgba(99, 88, 238, 1) 94.3%
     );
     transition: all 0.475s;
+}
+
+.button a {
+    text-decoration: none;
+    color: #fff;
 }
 /*END BUTTONS  */

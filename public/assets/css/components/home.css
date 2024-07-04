@@ -57,13 +57,14 @@
 
 .card-footer {
     background-color: transparent;
+    text-align: center;
     border: none;
     padding: 5px;
 }
 
 .category {
     display: inline-block;
-    padding: 3px 3px;
+    padding: 2px 3px;
+    margin-right: 3px;
     border-radius: 3px;
-    margin-bottom: 3px;
 }

@@ -1,6 +1,8 @@
-@extends('layouts.home')
+@extends('layouts.base')
 
 @section('title', 'Welcome')
+
+@include('includes.header_section')
 
 @section('content')
 
@@ -20,7 +22,10 @@
                         {{-- <li><i class="bi bi-dot"></i> Discover, organize, and transform your reading habits with Readwish</li> --}}
                         <li><i class="bi bi-dot"></i> Explore new genres and authors with ease</li>
                         <li><i class="bi bi-dot"></i> Leave and read reviews on books</li>
-                        <li><i class="bi bi-dot"></i> Earn achievements and rewards for reaching reading milestones</li>
+                        <li><i class="bi bi-dot"></i> Earn achievements for reaching
+                            reading
+                            milestones
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -30,86 +35,25 @@
     {{-- BOOKS --}}
 
     <!-- Ultimi libri inseriti -->
-    <div class="container mt-4 mb-5">
-        <h2 class="text-center">Recently added books</h2>
+    <div class="container mb-3">
+        <h3 class="text-center mt-4">Recently added books</h3>
         <div class="row mt-3 justify-content-center">
             @foreach ($latestBooks as $book)
-                <div class="col-md-2">
-                    {{-- link --}}
-                    <a href="{{ route('books.show', ['book' => $book->id]) }}" class="card-link">
-                        <div class="card h-100">
-                            {{-- image --}}
-                            <img src="{{ $book->cover }}" class="card-img-top img-fluid" alt="cover">
-                            {{-- <img src="{{ Storage::url($book->cover) }}" class="card-img-top" alt="cover"> --}}
-                            <div class="card-body pt-1">
-                                {{-- title --}}
-                                <h5 class="card-title fw-medium m-0">{{ $book->title }}</h5>
-                                {{-- author --}}
-                                <p class="card-text mb-1">by <span class="fw-medium">{{ $book->author->name }}
-                                        {{ $book->author->surname }}</span></p>
-                                {{-- reviews --}}
-                                @if ($book->reviews->count() > 0)
-                                    <p class="card-text mb-1"><i class="bi bi-star-fill text-yellow"></i>
-                                        {{ number_format($book->reviews->avg('rating'), 1) }}
-                                        ({{ $book->reviews->count() }})</p>
-                                @else
-                                    <p class="card-text"><em>No reviews available</em></p>
-                                @endif
-                            </div>
-                            {{-- categories --}}
-                            <div class="card-footer">
-                                @foreach ($book->categories as $category)
-                                    <span class="category" style="background-color: {{ $category->color }};">
-                                        {{ $category->name }}</span>
-                                @endforeach
-                            </div>
-
-                        </div>
-                    </a>
-                </div>
+                @include('partials.bookcard')
             @endforeach
         </div>
     </div>
 
     {{-- Libri con votazione migliore --}}
-    <div class="container mt-4 mb-5">
-        <h2 class="text-center">Best rating books</h2>
-        <div class="row mt-3 justify-content-center">
-            @foreach ($topRatedBooks as $book)
-                <div class="col-md-2">
-                    {{-- link --}}
-                    <a href="{{ route('books.show', ['book' => $book->id]) }}" class="card-link">
-                        <div class="card h-100">
-                            {{-- image --}}
-                            <img src="{{ $book->cover }}" class="card-img-top img-fluid" alt="cover">
-                            {{-- <img src="{{ Storage::url($book->cover) }}" class="card-img-top" alt="cover"> --}}
-                            <div class="card-body pt-1">
-                                {{-- title --}}
-                                <h5 class="card-title fw-medium m-0">{{ $book->title }}</h5>
-                                {{-- author --}}
-                                <p class="card-text mb-1">by <span class="fw-medium">{{ $book->author->name }}
-                                        {{ $book->author->surname }}</span></p>
-                                {{-- reviews --}}
-                                @if ($book->reviews->count() > 0)
-                                    <p class="card-text mb-1"><i class="bi bi-star-fill text-yellow"></i>
-                                        {{ number_format($book->reviews->avg('rating'), 1) }}
-                                        ({{ $book->reviews->count() }})</p>
-                                @else
-                                    <p class="card-text"><em>No reviews available</em></p>
-                                @endif
-                            </div>
-                            {{-- categories --}}
-                            <div class="card-footer">
-                                @foreach ($book->categories as $category)
-                                    <span class="category" style="background-color: {{ $category->color }};">
-                                        {{ $category->name }}</span>
-                                @endforeach
-                            </div>
-
-                        </div>
-                    </a>
-                </div>
-            @endforeach
+    <div class="title-section mb-5 pt-4">
+        <div class="container">
+            <h3 class="text-center">Best rating books</h3>
+            <div class="row mt-3 justify-content-center">
+                @foreach ($topRatedBooks as $book)
+                    @include('partials.bookcard')
+                @endforeach
+                <a href="{{ route('home.index') }}" class="text-center mb-4 fw-medium">View all books</a>
+            </div>
         </div>
     </div>
 
