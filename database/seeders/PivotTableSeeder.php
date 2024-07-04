@@ -15,26 +15,26 @@ class PivotTableSeeder extends Seeder
     public function run(): void
     {
         // Generazione dati per book_category
-        //$books = Book::factory()->count(14)->create();
-        $books = Book::whereBetween('id', [1, 20])->get();
-        $allCategories = Category::all();
-
+        $books = Book::all();
+        $categories = Category::all();
         foreach ($books as $book) {
-            $randomCategories = $allCategories->random(rand(1, 3));
-            $book->categories()->attach($randomCategories);
+            // Seleziona un numero casuale (da 1 a 3) di categorie
+            $randomCategories = $categories->random(rand(1, 3));
+            // Associa queste categorie al libro utilizzando la tabella pivot
+            $book->categories()->sync($randomCategories);
         }
 
-        // Generazione dati per book_user
-        $users = User::factory()->count(2)->create();
-        $books = Book::all()->random(2);
+        // // Generazione dati per book_user
+        // $users = User::factory()->count(2)->create();
+        // $books = Book::all()->random(2);
 
-        foreach ($users as $user) {
-            foreach ($books as $book) {
-                $user->books()->attach($book, [
-                    'status' => ['already_read', 'reading', 'want_to_read'][rand(0, 2)],
-                    'is_favorite' => (bool)rand(0, 1),
-                ]);
-            }
-        }
+        // foreach ($users as $user) {
+        //     foreach ($books as $book) {
+        //         $user->books()->attach($book, [
+        //             'status' => ['already_read', 'reading', 'want_to_read'][rand(0, 2)],
+        //             'is_favorite' => (bool)rand(0, 1),
+        //         ]);
+        //     }
+        // }
     }
 }

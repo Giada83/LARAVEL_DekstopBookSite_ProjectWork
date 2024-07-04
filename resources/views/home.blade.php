@@ -7,14 +7,14 @@
     {{-- HEADER --}}
     <div class="title-section py-4">
         <div class="container">
-            <div class="row d-flex align-items-end ">
+            <div class="row d-flex align-items-end">
                 <div class="col-3"><img src="{{ asset('assets/image/books.jpg') }}" alt="" class="img-fluid"></div>
                 <div class="col-9">
-                    <h1>Unlock the joy of reading with <u>Readwish</u></h1>
+                    <h1>Unlock the joy of reading with <u>ReadWish</u></h1>
                     </h1>
-                    <h2 class="fs-5 fw-light mb-3">Your gateway to a personalized reading experience!</h2>
+                    <h2 class="fs-5 fw-light mb-3 pink">Your gateway to a personalized reading experience!</h2>
                     <span class="rectangle">
-                        <h5>Why Choose Readwish?</h5>
+                        <h5>Why Choose ReadWish?</h5>
                     </span>
                     <ul class="list-unstyled">
                         {{-- <li><i class="bi bi-dot"></i> Discover, organize, and transform your reading habits with Readwish</li> --}}
@@ -27,36 +27,48 @@
         </div>
     </div>
 
+    {{-- BOOKS --}}
 
-
-    {{-- Sezioni libri --}}
-    {{-- <div class="container">
-        <div class="row g-1 mt-5">
-            @foreach ($books as $book)
-                <div class="col-2">
+    <!-- Ultimi libri inseriti -->
+    <div class="container mt-4 mb-5">
+        <h2 class="text-center">Recently added books</h2>
+        <div class="row mt-3 justify-content-center">
+            @foreach ($latestBooks as $book)
+                <div class="col-md-2">
+                    {{-- link --}}
                     <a href="{{ route('books.show', ['book' => $book->id]) }}" class="card-link">
-                        <div class="card">
-                            <img src="{{ $book->cover }}" class="card-img-top" alt="cover">
-                            <img src="{{ Storage::url($book->cover) }}" class="card-img-top" alt="cover">
-                            <div class="card-body">
-                                <p class="card-title">Id: {{ $book->id }}</p>
-                                <p class="card-title fw-semibold">{{ $book->title }}</p>
-                                <p class="card-text">By: {{ $book->author->name }} {{ $book->author->surname }}</p>
-                                <p class="card-text">
-                                    Category: @foreach ($book->categories as $category)
-                                        {{ $category->name }}
-                                        @unless ($loop->last)
-                                            ,
-                                        @endunless
-                                    @endforeach
-                                </p>
+                        <div class="card h-100">
+                            {{-- image --}}
+                            <img src="{{ $book->cover }}" class="card-img-top img-fluid" alt="cover">
+                            {{-- <img src="{{ Storage::url($book->cover) }}" class="card-img-top" alt="cover"> --}}
+                            <div class="card-body pt-1">
+                                {{-- title --}}
+                                <h5 class="card-title fw-medium m-0">{{ $book->title }}</h5>
+                                {{-- author --}}
+                                <p class="card-text mb-1">by <span class="fw-medium">{{ $book->author->name }}
+                                        {{ $book->author->surname }}</span></p>
+                                {{-- reviews --}}
+                                @if ($book->reviews->count() > 0)
+                                    <p class="card-text mb-1"><i class="bi bi-star-fill text-yellow"></i>
+                                        {{ number_format($book->reviews->avg('rating'), 1) }}
+                                        ({{ $book->reviews->count() }})</p>
+                                @else
+                                    <p class="card-text"><em>Nessuna recensione disponibile</em></p>
+                                @endif
                             </div>
+                            {{-- categories --}}
+                            <div class="card-footer">
+                                @foreach ($book->categories as $category)
+                                    <span class="category" style="background-color: {{ $category->color }};">
+                                        {{ $category->name }}</span>
+                                @endforeach
+                            </div>
+
                         </div>
                     </a>
                 </div>
             @endforeach
         </div>
-    </div> --}}
-
+    </div>
 
 @endsection

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
@@ -13,7 +13,7 @@ Route::get('/prova', function () {
 });
 
 // Rotta per la homepage principale che carica i libri
-Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home');
 // Rotte di reindirizzamento 
 Route::redirect('/home', '/');
 

@@ -10,9 +10,9 @@ class BadgeSeeder extends Seeder
     public function run()
     {
         Badge::updateOrCreate(
-            ['name' => 'Primo Libro ai Preferiti'],
+            ['name' => 'First Book Favorited'],
             [
-                'description' => 'Hai aggiunto il tuo primo libro ai preferiti!',
+                'description' => 'You have added your first book to favorites!',
                 'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/02/Suit_Hearts_%28open_clipart%29.svg'
             ]
         );
