@@ -8,6 +8,7 @@ use App\Models\Review;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Events\BookFavorited;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreBookRequest;
 use Illuminate\Support\Facades\Storage;
@@ -30,10 +31,13 @@ class BookController extends Controller
             $booksQuery->where(function ($query) use ($search) {
                 $query->where('title', 'like', '%' . $search . '%')
                     ->orWhereHas('author', function ($query) use ($search) {
-                        $query->where('name', 'like', '%' . $search . '%');
+                        $query->where('name', 'like', '%' . $search . '%')
+                            ->orWhere('surname', 'like', '%' . $search . '%')
+                            ->orWhere(DB::raw("CONCAT(name, ' ', surname)"), 'like', '%' . $search . '%');
                     });
             });
         }
+
 
         // Applica il filtro per categoria
         if ($categoryId) {
@@ -49,9 +53,6 @@ class BookController extends Controller
                 break;
             case 'title_desc':
                 $booksQuery->orderBy('title', 'desc');
-                break;
-            case 'author':
-                $booksQuery->orderBy('author.name', 'asc');
                 break;
             case 'recent':
                 $booksQuery->orderBy('created_at', 'desc');
@@ -175,6 +176,26 @@ class BookController extends Controller
         $book->delete();
 
         return redirect()->route('books.index')->with('success', 'Book deleted successfully');
+    }
+
+    //BARRA DI RICERCA IN HOMEPAGE
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        // Cerca libri che corrispondono al titolo o all'autore
+        $books = Book::select(['id', 'title', 'cover', 'author_id', 'created_at'])
+            ->with('author')
+            ->withAvg('reviews', 'rating')
+            ->where('title', 'like', '%' . $search . '%')
+            ->orWhereHas('author', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('surname', 'like', '%' . $search . '%')
+                    ->orWhere(DB::raw("CONCAT(name, ' ', surname)"), 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        return view('books.search', compact('books', 'search'));
     }
 
     // AGGIUNGI/RIMUOVI PREFERITI

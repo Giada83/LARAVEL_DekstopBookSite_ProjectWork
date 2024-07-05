@@ -7,13 +7,14 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 
-// Rotte homepage e visuaalizzazione libri
+// Homepage
 Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::redirect('/home', '/'); // Rotta di reindirizzamento 
+
+// Visualizzazione e ricerca libri
+Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
-
-// Rotte di reindirizzamento 
-Route::redirect('/home', '/');
 
 // Amministratore - CRUD 
 Route::resource('books', BookController::class)->except('index', 'show');

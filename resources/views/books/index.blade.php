@@ -5,9 +5,10 @@
 @section('content')
 
     <div class="mt-5">
-
+        <div class="header-section pb-2 mb-4">
+            <h2 class="text-center text-white">Explore the Library</h2>
+        </div>
         <div class="container">
-            <h2 class="text-center pt-3">ReadWish - Explore the Library</h2>
             <form action="{{ route('books.index') }}" method="GET">
                 {{-- ricerca per tipologia e categorie --}}
                 <label for="search">Search:</label>
@@ -21,7 +22,6 @@
                     </option>
                     <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Title: Z-A
                     </option>
-                    <option value="author" {{ request('sort') == 'author' ? 'selected' : '' }}>Author</option>
                     <option value="recent" {{ request('sort') == 'recent' ? 'selected' : '' }}>Latest books added</option>
                     <option value="best_reviews" {{ request('sort') == 'best_reviews' ? 'selected' : '' }}>Best reviews
                     </option>

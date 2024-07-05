@@ -6,29 +6,10 @@
 
 @section('content')
 
-    {{-- RICERCA LIBRI --}}
-    <div class="container">
-        @if (!empty($search))
-            <h2 class="mt-4">Search Results for "{{ $search }}"</h2>
-
-            <div id="searchResults">
-                @if ($books->isEmpty())
-                    <p>No results found.</p>
-                @else
-                    <div class="row">
-                        @foreach ($books as $book)
-                            @include('partials.bookcard')
-                        @endforeach
-                    </div>
-                @endif
-            </div>
-        @endif
-    </div>
-
     {{-- HEADER --}}
-    <div class="title-section py-4">
+    <div class="title-section py-2">
         <div class="container">
-            <div class="row d-flex align-items-end">
+            <div class="row d-flex align-items-center">
                 <div class="col-3"><img src="{{ asset('assets/image/books.jpg') }}" alt="" class="img-fluid"></div>
                 <div class="col-9">
                     <h1 class="purple">Unlock the joy of reading with <u>ReadWish</u></h1>
@@ -52,7 +33,6 @@
     </div>
 
     {{-- BOOKS --}}
-
     <!-- Ultimi libri inseriti -->
     <div class="container mb-3">
         <h3 class="text-center mt-4">Recently added books</h3>
@@ -75,5 +55,4 @@
             </div>
         </div>
     </div>
-
 @endsection
