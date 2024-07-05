@@ -7,22 +7,20 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 
-//prova layout
-Route::get('/prova', function () {
-    return view('prova');
-});
-
-// Rotta per la homepage principale che carica i libri
+// Rotte homepage e visuaalizzazione libri
 Route::get('/', [HomeController::class, 'home'])->name('home');
-Route::get('/home/books', [HomeController::class, 'index'])->name('home.index');
+Route::get('/books', [BookController::class, 'index'])->name('books.index');
+Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
+// Route::get('/home/books', [HomeController::class, 'index'])->name('home.index');
 // Rotte di reindirizzamento 
 Route::redirect('/home', '/');
 
-// Rotte per il model Book 
-Route::resource('books', BookController::class);
+// Amministratore - CRUD 
+Route::resource('books', BookController::class)->except('index', 'show');
 
+// Utenti loggati
 Route::middleware('auth')->group(function () {
-    //Rotte per il model Review - esculsa la index
+    //Rotte per il model Review - esclusa la index
     Route::resource('reviews', ReviewController::class)->except('index');
     Route::get('/user/reviews', [UserController::class, 'userReviews'])->name('user.reviews'); //recensioni utente
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Author;
+use App\Models\Review;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Events\BookFavorited;
@@ -14,18 +15,54 @@ use App\Http\Requests\UpdateBookRequest;
 
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        $books = Book::with('author', 'categories')->get();
-        return view('books.index', compact('books'));
+        // $books = Book::with('author', 'categories')->get();
+        // return view('books.index', compact('books'));
+
+        $sort = $request->query('sort', 'title_asc'); // Default 
+        $categoryId = $request->query('category');
+
+        $books = Book::select(['id', 'title', 'cover', 'author_id', 'created_at'])
+            ->with('author')
+            ->withAvg('reviews', 'rating')
+            ->when($categoryId, function ($query, $categoryId) {
+                return $query->whereHas('categories', function ($query) use ($categoryId) {
+                    $query->where('categories.id', $categoryId);
+                });
+            })
+            ->when($sort == 'title_asc', function ($query) {
+                return $query->orderBy('title', 'asc');
+            })
+            ->when($sort == 'title_desc', function ($query) {
+                return $query->orderBy('title', 'desc');
+            })
+            ->when($sort == 'author', function ($query) {
+                return $query->orderBy(Author::select('name')->whereColumn('authors.id', 'books.author_id'), 'asc');
+            })
+            ->when($sort == 'recent', function ($query) {
+                return $query->orderBy('created_at', 'desc');
+            })
+            ->when($sort == 'best_reviews', function ($query) {
+                return $query->orderBy('reviews_avg_rating', 'desc');
+            })
+            // ->when($sort == 'year_asc', function ($query) {
+            //     return $query->orderBy('year', 'asc');
+            // })
+            // ->when($sort == 'year_desc', function ($query) {
+            //     return $query->orderBy('year', 'desc');
+            // })
+            // ->paginate(10);
+            ->get();
+
+        $authors = Author::select(['id', 'name'])->get();
+        $categories = Category::all();
+        $reviews = Review::all();
+
+        return view('books.index', compact('books', 'authors', 'categories', 'reviews'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $authors = Author::all();
@@ -33,9 +70,7 @@ class BookController extends Controller
         return view('books.create', compact('authors', 'categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(StoreBookRequest $request)
     {
         // Gestione dell'immagine di copertina
@@ -67,9 +102,7 @@ class BookController extends Controller
         return redirect()->route('books.index')->with('success', 'Book added successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(Book $book)
     {
         // Recupera un libro specifico e tutte le recensioni associate a questo libro
@@ -78,9 +111,7 @@ class BookController extends Controller
         return view('books.show', compact('book', 'reviews'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Book $book)
     {
         $authors = Author::all();
@@ -88,9 +119,7 @@ class BookController extends Controller
         return view('books.edit', compact('book', 'authors', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(UpdateBookRequest $request, Book $book)
     {
         if ($request->hasFile('cover')) {
@@ -126,9 +155,7 @@ class BookController extends Controller
         return redirect()->route('books.index')->with('success', 'Book updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Book $book)
     {
         if ($book->cover) {

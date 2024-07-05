@@ -52,7 +52,7 @@
                 @foreach ($topRatedBooks as $book)
                     @include('partials.bookcard')
                 @endforeach
-                <a href="{{ route('home.index') }}" class="text-center mb-4 fw-medium">View all books</a>
+                <a href="{{ route('books.index') }}" class="text-center mb-4 fw-medium">View all books</a>
             </div>
         </div>
     </div>

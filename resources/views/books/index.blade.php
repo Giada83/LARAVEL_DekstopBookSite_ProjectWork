@@ -1,79 +1,61 @@
-@extends('layouts.home')
+@extends('layouts.base')
+
+@section('title', 'BooksList')
 
 @section('content')
-    {{-- messaggio di errore  --}}
-    <h1 class="mb-4">Books</h1>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+
+    <div class="mt-5">
+        <div class="container">
+            <h2 class="text-center pt-3">ReadWish - Explore the Library</h2>
+
+            {{-- <form action="{{ route('home.index') }}" method="GET">
+                <label for="sort">Sort By:</label>
+                <select name="sort" id="sort" onchange="this.form.submit()">
+                    <option value="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>Title: A-Z</option>
+                    <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Title: Z-A
+                    </option>
+                    <option value="author" {{ request('sort') == 'author' ? 'selected' : '' }}>Author</option>
+                    </option>
+                    <option value="recent" {{ request('sort') == 'recent' ? 'selected' : '' }}>Most Recent Update</option>
+                    <option value="best_reviews" {{ request('sort') == 'best_reviews' ? 'selected' : '' }}>Best Reviews
+                    </option>
+                </select>
+            </form> --}}
+            <form action="{{ route('books.index') }}" method="GET">
+                <label for="sort">Sort By:</label>
+                <select name="sort" id="sort">
+                    <option value="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>Title Ascending</option>
+                    <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Title Descending
+                    </option>
+                    <option value="author" {{ request('sort') == 'author' ? 'selected' : '' }}>Author</option>
+                    <option value="recent" {{ request('sort') == 'recent' ? 'selected' : '' }}>Most Recent</option>
+                    <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Oldest</option>
+                    <option value="best_reviews" {{ request('sort') == 'best_reviews' ? 'selected' : '' }}>Best Reviews
+                    </option>
+                    <option value="year_asc" {{ request('sort') == 'year_asc' ? 'selected' : '' }}>Year Ascending</option>
+                    <option value="year_desc" {{ request('sort') == 'year_desc' ? 'selected' : '' }}>Year Descending
+                    </option>
+                </select>
+
+                <label for="category">Filter By Category:</label>
+                <select name="category" id="category">
+                    <option value="">All Categories</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+
+                <button type="submit">Apply</button>
+            </form>
+
+            <div class="row mt-3 justify-content-center">
+                @foreach ($books as $book)
+                    @include('partials.bookcard')
                 @endforeach
-            </ul>
+            </div>
         </div>
-    @endif
+    </div>
 
-    {{-- messaggio di successo --}}
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Author</th>
-                <th>Title</th>
-                <th>Cover</th>
-                <th>Description</th>
-                <th>Year</th>
-                <th>Language</th>
-                <th>Categories</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($books as $book)
-                <tr>
-                    <td>{{ $book->id }}</td>
-                    <td>{{ ucfirst(substr($book->author->name, 0, 1)) }}. {{ $book->author->surname }}</td>
-                    <td>{{ Str::limit($book->title, 20) }}</td>
-                    <td>
-                        @if ($book->cover)
-                            {{-- Se $book->cover è un URL di un'immagine --}}
-                            @if (filter_var($book->cover, FILTER_VALIDATE_URL))
-                                <img src="{{ $book->cover }}" alt="Cover Image" style="width: 50px;">
-                            @else
-                                {{-- Se $book->cover è un percorso nel filesystem --}}
-                                <img src="{{ Storage::url($book->cover) }}" alt="{{ $book->title }}" style="width: 50px;">
-                            @endif
-                        @else
-                            <span>No cover found</span>
-                        @endif
-                    </td>
-                    <td>{{ Str::limit($book->description, 20) }}</td>
-                    <td>{{ $book->year }}</td>
-                    <td>{{ $book->language }}</td>
-                    <td>
-                        @foreach ($book->categories as $category)
-                            {{ $category->name }}@if (!$loop->last)
-                                ,
-                            @endif
-                        @endforeach
-                    </td>
-                    <td>
-                        <a href="{{ route('books.edit', $book->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                        <form action="{{ route('books.destroy', $book->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger"
-                                onclick="return confirm('Are you sure?')">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
 @endsection
