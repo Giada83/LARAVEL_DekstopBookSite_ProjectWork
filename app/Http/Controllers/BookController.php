@@ -38,7 +38,6 @@ class BookController extends Controller
             });
         }
 
-
         // Applica il filtro per categoria
         if ($categoryId) {
             $booksQuery->whereHas('categories', function ($query) use ($categoryId) {
@@ -65,7 +64,7 @@ class BookController extends Controller
                 break;
         }
 
-        $books = $booksQuery->get();
+        $books = $booksQuery->paginate(12);
         $authors = Author::select(['id', 'name'])->get();
         $categories = Category::all();
         $reviews = Review::all();

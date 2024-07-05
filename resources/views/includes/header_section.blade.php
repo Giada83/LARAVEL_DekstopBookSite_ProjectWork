@@ -21,7 +21,7 @@
                                     stroke-linejoin="round"></path>
                             </svg>
                         </button>
-                        <input class="input" name="search" placeholder="Search books or authors" required=""
+                        <input class="searchformbar" name="search" placeholder="Search books or authors" required=""
                             type="text">
                         <button class="reset" type="reset">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -39,10 +39,10 @@
                             <a href="{{ route('login') }}"><span class="button-content fw-normal">Join for free</span></a>
                         </button>
                         <button class="button yellow ms-3" ">
-                                                                                                            <a href="{{ route('books.index') }}"><span class="button-content fw-normal">Browse
-                                                                                                        book</span></a>
-                                                                                                    </button>
-                                                                                                </div>
+                                                                                                                    <a href="{{ route('books.index') }}"><span class="button-content fw-normal">Browse
+                                                                                                                book</span></a>
+                                                                                                            </button>
+                                                                                                        </div>
                 @endguest
             </div>
 

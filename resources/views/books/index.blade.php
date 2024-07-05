@@ -9,41 +9,62 @@
             <h2 class="text-center text-white">Explore the Library</h2>
         </div>
         <div class="container">
-            <form action="{{ route('books.index') }}" method="GET">
-                {{-- ricerca per tipologia e categorie --}}
-                <label for="search">Search:</label>
-                <input type="text" name="search" id="search" value="{{ request('search') }}"
-                    placeholder="Search by title or author">
 
-                {{-- Filtra per tipologia --}}
-                <label for="sort">Sort By:</label>
-                <select name="sort" id="sort">
-                    <option value="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>Title: A-Z
-                    </option>
-                    <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Title: Z-A
-                    </option>
-                    <option value="recent" {{ request('sort') == 'recent' ? 'selected' : '' }}>Latest books added</option>
-                    <option value="best_reviews" {{ request('sort') == 'best_reviews' ? 'selected' : '' }}>Best reviews
-                    </option>
-                </select>
+            <form action="{{ route('books.index') }}" method="GET" class="d-flex justify-content-between align-items-center"
+                role="search">
+                {{-- Gruppo 1: Ricerca --}}
+                <div class="d-flex">
+                    <div class="search-wrapper">
+                        <input class="input" type="text" name="search" id="search" value="{{ request('search') }}"
+                            placeholder="Search by title or author" id="clearSearch">
+                        <i class="bi bi-x clear-icon"></i>
+                    </div>
+                </div>
 
-                {{-- Filta per categorie --}}
-                <label for="category">Filter By Category:</label>
-                <select name="category" id="category">
-                    <option value="">All Categories</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
-                            {{ $category->name }}
-                        </option>
-                    @endforeach
-                </select>
+                {{-- Gruppo 2: Filtri e Pulsanti --}}
+                <div class="d-flex">
+                    {{-- Filtri --}}
+                    <div class="d-flex align-items-center">
 
-                <button type="submit">Apply</button>
-                <button type="button" onclick="resetForm()">Reset</button>
+                        <span class="sort">Sort by:</span>
+                        <select class="form-select" name="sort" id="sort">
+                            <option selected ="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>Title:
+                                A-Z
+                            </option>
+                            <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Title:
+                                Z-A
+                            </option>
+                            <option value="recent" {{ request('sort') == 'recent' ? 'selected' : '' }}>Latest books
+                            </option>
+                            <option value="best_reviews" {{ request('sort') == 'best_reviews' ? 'selected' : '' }}>Best
+                                reviews
+                            </option>
+                        </select>
+
+                        <span class="sort">Filter by:</span>
+                        <select class="form-select" name="category" id="sort">
+                            <option value="">All Categories</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ request('category') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                    </div>
+
+                    {{-- Pulsanti --}}
+                    <div>
+                        <button type="submit" class="btn-index"><i class="bi bi-search text-yellow"></i></button>
+                        <button type="button" onclick="resetForm()" class="btn-index purple"><i
+                                class="bi bi-x-circle"></i></button>
+                    </div>
+                </div>
             </form>
 
             {{-- card libri --}}
-            <div class="row mt-3 d-flex justify-content-center">
+            <div class="row mt-3 d-flex justify-content-center mb-3">
                 @forelse ($books as $book)
                     @include('partials.bookcard')
                 @empty
@@ -57,7 +78,9 @@
                     </div>
                 @endforelse
             </div>
+
+            {{-- paginazione --}}
+            {{ $books->links() }}
         </div>
     </div>
-
 @endsection

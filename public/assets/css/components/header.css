@@ -83,7 +83,7 @@ span {
     background: var(--input-bg, #fff);
 }
 /* styling of Input */
-.input {
+.searchformbar {
     font-size: 0.9rem;
     background-color: transparent;
     width: 100%;
@@ -111,7 +111,7 @@ span {
     border-radius: var(--after-border-radius);
 }
 
-input:focus {
+.searchformbar:focus {
     outline: none;
 }
 /* here is code of animated border */
