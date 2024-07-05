@@ -11,7 +11,7 @@ use App\Http\Controllers\ProfileController;
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
-// Route::get('/home/books', [HomeController::class, 'index'])->name('home.index');
+
 // Rotte di reindirizzamento 
 Route::redirect('/home', '/');
 

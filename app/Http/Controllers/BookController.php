@@ -18,9 +18,6 @@ class BookController extends Controller
 
     public function index(Request $request)
     {
-        // $books = Book::with('author', 'categories')->get();
-        // return view('books.index', compact('books'));
-
         $sort = $request->query('sort', 'title_asc'); // Default 
         $categoryId = $request->query('category');
 
@@ -47,13 +44,6 @@ class BookController extends Controller
             ->when($sort == 'best_reviews', function ($query) {
                 return $query->orderBy('reviews_avg_rating', 'desc');
             })
-            // ->when($sort == 'year_asc', function ($query) {
-            //     return $query->orderBy('year', 'asc');
-            // })
-            // ->when($sort == 'year_desc', function ($query) {
-            //     return $query->orderBy('year', 'desc');
-            // })
-            // ->paginate(10);
             ->get();
 
         $authors = Author::select(['id', 'name'])->get();
@@ -101,7 +91,6 @@ class BookController extends Controller
 
         return redirect()->route('books.index')->with('success', 'Book added successfully');
     }
-
 
     public function show(Book $book)
     {

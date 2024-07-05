@@ -5,35 +5,20 @@
 @section('content')
 
     <div class="mt-5">
+
         <div class="container">
             <h2 class="text-center pt-3">ReadWish - Explore the Library</h2>
-
-            {{-- <form action="{{ route('home.index') }}" method="GET">
-                <label for="sort">Sort By:</label>
-                <select name="sort" id="sort" onchange="this.form.submit()">
-                    <option value="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>Title: A-Z</option>
-                    <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Title: Z-A
-                    </option>
-                    <option value="author" {{ request('sort') == 'author' ? 'selected' : '' }}>Author</option>
-                    </option>
-                    <option value="recent" {{ request('sort') == 'recent' ? 'selected' : '' }}>Most Recent Update</option>
-                    <option value="best_reviews" {{ request('sort') == 'best_reviews' ? 'selected' : '' }}>Best Reviews
-                    </option>
-                </select>
-            </form> --}}
+            {{-- ricerca per tipologia e categorie --}}
             <form action="{{ route('books.index') }}" method="GET">
                 <label for="sort">Sort By:</label>
                 <select name="sort" id="sort">
-                    <option value="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>Title Ascending</option>
-                    <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Title Descending
+                    <option value="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>Title: A-Z
+                    </option>
+                    <option value="title_desc" {{ request('sort') == 'title_desc' ? 'selected' : '' }}>Title: Z-A
                     </option>
                     <option value="author" {{ request('sort') == 'author' ? 'selected' : '' }}>Author</option>
-                    <option value="recent" {{ request('sort') == 'recent' ? 'selected' : '' }}>Most Recent</option>
-                    <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Oldest</option>
-                    <option value="best_reviews" {{ request('sort') == 'best_reviews' ? 'selected' : '' }}>Best Reviews
-                    </option>
-                    <option value="year_asc" {{ request('sort') == 'year_asc' ? 'selected' : '' }}>Year Ascending</option>
-                    <option value="year_desc" {{ request('sort') == 'year_desc' ? 'selected' : '' }}>Year Descending
+                    <option value="recent" {{ request('sort') == 'recent' ? 'selected' : '' }}>Latest books added</option>
+                    <option value="best_reviews" {{ request('sort') == 'best_reviews' ? 'selected' : '' }}>Best reviews
                     </option>
                 </select>
 
@@ -48,8 +33,11 @@
                 </select>
 
                 <button type="submit">Apply</button>
+                <button type="button" onclick="resetForm()">Reset</button>
             </form>
 
+
+            {{-- card libri --}}
             <div class="row mt-3 justify-content-center">
                 @foreach ($books as $book)
                     @include('partials.bookcard')
