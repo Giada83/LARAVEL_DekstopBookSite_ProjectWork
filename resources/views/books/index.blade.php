@@ -8,8 +8,13 @@
 
         <div class="container">
             <h2 class="text-center pt-3">ReadWish - Explore the Library</h2>
-            {{-- ricerca per tipologia e categorie --}}
             <form action="{{ route('books.index') }}" method="GET">
+                {{-- ricerca per tipologia e categorie --}}
+                <label for="search">Search:</label>
+                <input type="text" name="search" id="search" value="{{ request('search') }}"
+                    placeholder="Search by title or author">
+
+                {{-- Filtra per tipologia --}}
                 <label for="sort">Sort By:</label>
                 <select name="sort" id="sort">
                     <option value="title_asc" {{ request('sort') == 'title_asc' ? 'selected' : '' }}>Title: A-Z
@@ -22,6 +27,7 @@
                     </option>
                 </select>
 
+                {{-- Filta per categorie --}}
                 <label for="category">Filter By Category:</label>
                 <select name="category" id="category">
                     <option value="">All Categories</option>
@@ -36,12 +42,20 @@
                 <button type="button" onclick="resetForm()">Reset</button>
             </form>
 
-
             {{-- card libri --}}
-            <div class="row mt-3 justify-content-center">
-                @foreach ($books as $book)
+            <div class="row mt-3 d-flex justify-content-center">
+                @forelse ($books as $book)
                     @include('partials.bookcard')
-                @endforeach
+                @empty
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-5 text-center bg-white rounded p-2">
+                            <img src="{{ asset('assets/image/no_results.jpg') }}" class="img-fluid">
+                            <p class="fs-3 mb-0 purple fw-semibold">No
+                                Results Found</p>
+                            <p class="fs-6 fw-light mb-0">Explore Different Keywords</p>
+                        </div>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>

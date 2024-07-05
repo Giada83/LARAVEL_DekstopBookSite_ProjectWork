@@ -17,19 +17,9 @@ body {
     font-size: 1rem;
 }
 
-h1,
-h5 {
-    font-weight: 300;
-}
-
-h1 {
-    color: #5c64f2;
-    line-height: 0.7;
-}
-
-h5 {
-    color: white;
-    margin: 0;
+body,
+a {
+    color: rgb(46, 46, 46);
 }
 
 .pink {
@@ -40,7 +30,20 @@ h5 {
     color: #f2a007;
 }
 
-body,
-a {
-    color: rgb(46, 46, 46);
+.purple {
+    color: #5c64f2;
+}
+
+h1,
+h5 {
+    font-weight: 300;
+}
+
+h1 {
+    line-height: 0.7;
+}
+
+h5 {
+    color: white;
+    margin: 0;
 }

@@ -15,37 +15,56 @@ use App\Http\Requests\UpdateBookRequest;
 
 class BookController extends Controller
 {
-
     public function index(Request $request)
     {
         $sort = $request->query('sort', 'title_asc'); // Default 
         $categoryId = $request->query('category');
+        $search = $request->query('search');
 
-        $books = Book::select(['id', 'title', 'cover', 'author_id', 'created_at'])
+        $booksQuery = Book::select(['id', 'title', 'cover', 'author_id', 'created_at'])
             ->with('author')
-            ->withAvg('reviews', 'rating')
-            ->when($categoryId, function ($query, $categoryId) {
-                return $query->whereHas('categories', function ($query) use ($categoryId) {
-                    $query->where('categories.id', $categoryId);
-                });
-            })
-            ->when($sort == 'title_asc', function ($query) {
-                return $query->orderBy('title', 'asc');
-            })
-            ->when($sort == 'title_desc', function ($query) {
-                return $query->orderBy('title', 'desc');
-            })
-            ->when($sort == 'author', function ($query) {
-                return $query->orderBy(Author::select('name')->whereColumn('authors.id', 'books.author_id'), 'asc');
-            })
-            ->when($sort == 'recent', function ($query) {
-                return $query->orderBy('created_at', 'desc');
-            })
-            ->when($sort == 'best_reviews', function ($query) {
-                return $query->orderBy('reviews_avg_rating', 'desc');
-            })
-            ->get();
+            ->withAvg('reviews', 'rating');
 
+        // Applica la ricerca per titolo o autore
+        if ($search) {
+            $booksQuery->where(function ($query) use ($search) {
+                $query->where('title', 'like', '%' . $search . '%')
+                    ->orWhereHas('author', function ($query) use ($search) {
+                        $query->where('name', 'like', '%' . $search . '%');
+                    });
+            });
+        }
+
+        // Applica il filtro per categoria
+        if ($categoryId) {
+            $booksQuery->whereHas('categories', function ($query) use ($categoryId) {
+                $query->where('categories.id', $categoryId);
+            });
+        }
+
+        // Applica l'ordinamento
+        switch ($sort) {
+            case 'title_asc':
+                $booksQuery->orderBy('title', 'asc');
+                break;
+            case 'title_desc':
+                $booksQuery->orderBy('title', 'desc');
+                break;
+            case 'author':
+                $booksQuery->orderBy('author.name', 'asc');
+                break;
+            case 'recent':
+                $booksQuery->orderBy('created_at', 'desc');
+                break;
+            case 'best_reviews':
+                $booksQuery->orderByDesc('reviews_avg_rating');
+                break;
+            default:
+                $booksQuery->orderBy('title', 'asc');
+                break;
+        }
+
+        $books = $booksQuery->get();
         $authors = Author::select(['id', 'name'])->get();
         $categories = Category::all();
         $reviews = Review::all();
