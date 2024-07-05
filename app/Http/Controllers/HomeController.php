@@ -3,10 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Author;
-use App\Models\Category;
-use App\Models\Review;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {

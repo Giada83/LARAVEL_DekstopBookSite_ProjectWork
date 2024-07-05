@@ -4,22 +4,34 @@
 
 @section('content')
 
-    <div class="container">
-        @if (!empty($search))
-            <h2 class="mt-4">Search Results for "{{ $search }}"</h2>
+    <div class="mt-5">
+        <div class="header-section pb-2 mb-4">
+            @if ($search)
+                <h2 class="text-center text-white">
+                    Search Results for "{{ $search }}"
+                </h2>
+            @else
+                <h2 class="text-center text-white">
+                    Looking for something specific?
+                </h2>
+            @endif
+        </div>
 
-            <div id="searchResults">
-                @if ($books->isEmpty())
-                    <p>No results found.</p>
-                @else
-                    <div class="row">
-                        @foreach ($books as $book)
-                            <div class="col-md-2"> @include('partials.bookcard')</div>
-                        @endforeach
-                    </div>
-                @endif
+        <div class="container">
+            {{-- barra di ricerca --}}
+            <div class="d-flex justify-content-center">
+                <form action="{{ route('books.search') }}" method="GET"
+                    class="d-flex justify-content-between align-items-center" role="search">
+                    <input class="form-control" type="search" name="search" id="search" value="{{ request('search') }}"
+                        placeholder="Search by title or author" id="clearSearch" aria-label="Search">
+                </form>
+
+                <a href="{{ route('home') }}"><button class="goback yellow-hover"> Go Back </button></a>
+                <a href="{{ route('books.index') }}"><button class="goback purple-hover"> Browse Books </button></a>
             </div>
-        @endif
-    </div>
 
+            {{-- card libri e paginazione --}}
+            @include('partials.search-card')
+        </div>
+    </div>
 @endsection

@@ -192,7 +192,8 @@ class BookController extends Controller
                     ->orWhere('surname', 'like', '%' . $search . '%')
                     ->orWhere(DB::raw("CONCAT(name, ' ', surname)"), 'like', '%' . $search . '%');
             })
-            ->get();
+            ->paginate(6);
+
 
         return view('books.search', compact('books', 'search'));
     }

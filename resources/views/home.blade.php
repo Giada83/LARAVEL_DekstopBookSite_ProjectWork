@@ -19,7 +19,6 @@
                         <h5>Why Choose ReadWish?</h5>
                     </span>
                     <ul class="list-unstyled">
-                        {{-- <li><i class="bi bi-dot"></i> Discover, organize, and transform your reading habits with Readwish</li> --}}
                         <li><i class="bi bi-dot"></i> Explore new genres and authors with ease</li>
                         <li><i class="bi bi-dot"></i> Leave and read reviews on books</li>
                         <li><i class="bi bi-dot"></i> Earn achievements for reaching
@@ -55,4 +54,5 @@
             </div>
         </div>
     </div>
+
 @endsection

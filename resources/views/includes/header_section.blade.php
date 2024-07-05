@@ -1,6 +1,7 @@
 <div class="header-section">
     <div class="container">
         <div class="row mt-5">
+            {{-- colonna sinistra --}}
             <div class="col-md-6 header-text mt-4 text-white">
                 {{-- testo --}}
                 <p>Expand your mind, reading a book</p>
@@ -39,14 +40,14 @@
                             <a href="{{ route('login') }}"><span class="button-content fw-normal">Join for free</span></a>
                         </button>
                         <button class="button yellow ms-3" ">
-                                                                                                                    <a href="{{ route('books.index') }}"><span class="button-content fw-normal">Browse
-                                                                                                                book</span></a>
-                                                                                                            </button>
-                                                                                                        </div>
+                                                                                                                                <a href="{{ route('books.index') }}"><span class="button-content fw-normal">Browse
+                                                                                                                            book</span></a>
+                                                                                                                        </button>
+                                                                                                                    </div>
                 @endguest
             </div>
 
-            {{-- immagine --}}
+            {{-- colonna destra --}}
             <div class="col-md-6">
                 <div>
                     <img src="{{ asset('assets/image/bookheader.png') }}" alt="woman that read a book"
