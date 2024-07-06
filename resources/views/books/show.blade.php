@@ -46,7 +46,7 @@
                 {{-- card --}}
                 <div class="card mb-4">
                     <div class="row g-0 ">
-                        <div class="col-md-3 max me-2">
+                        <div class="col-md-3 max me-3">
                             {{-- image --}}
                             <div class="img-box outline">
                                 @if ($book->cover)
@@ -82,7 +82,8 @@
                 </div>
                 {{-- fine card --}}
 
-                <div class="d-flex">
+                {{-- preferiti e stato di lettura --}}
+                <div class="d-flex mb-3">
                     {{-- pulsante preferiti --}}
                     <div class="me-3">
                         @if ($book->users()->where('user_id', auth()->id())->wherePivot('is_favorite', true)->exists())
@@ -108,17 +109,6 @@
 
                     {{-- stato di lettura --}}
                     <div>
-                        {{-- <form action="{{ route('updateBookStatus', $book) }}" method="POST">
-                            @csrf
-                            <div class="btn-group" role="group" aria-label="Stato di lettura">
-                                <button type="submit" class="btn @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'want_to_read')->exists()) btn-primary @endif"
-                                    name="status" value="want_to_read">Want to read</button>
-                                <button type="submit" class="btn @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'reading')->exists()) btn-primary @endif"
-                                    name="status" value="reading">Now Reading</button>
-                                <button type="submit" class="btn @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'already_read')->exists()) btn-primary @endif"
-                                    name="status" value="already_read">Already Read</button>
-                            </div>
-                        </form> --}}
                         <form action="{{ route('updateBookStatus', $book) }}" method="POST">
                             @csrf
                             <div class="btn-group" role="group" aria-label="Stato di lettura">
@@ -136,32 +126,126 @@
                     </div>
                 </div>
 
+                {{-- fine container --}}
             </div>
         </div>
 
-    </div>
+        {{-- recensioni --}}
+        <div class="title-section">
+            <div class="container ">
+                <div class="row p-4">
+                    <div class="col-10">
+                        <h4 class="text-dark mb-3 fw-light">Reviews</h4>
+                        <div class="row">
+                            @if ($reviews->count() > 0)
+                                @foreach ($reviews as $review)
+                                    <div class="col-10">
+                                        <div class="card mb-4">
+                                            <div class="card-body text-start">
+                                                {{-- user --}}
+                                                <div class="card-title d-flex align-items-center mb-0 p-0">
+                                                    <div class="rev-img me-2">
+                                                        <img src="{{ $review->user->image_profile }}" alt="image profile">
+                                                    </div>
+                                                    <div>{{ $review->user->name }}</div>
+                                                </div>
+                                                {{-- stelle --}}
+                                                <div class="star-ratings">
+                                                    <p class="card-text">
+                                                        @php
+                                                            $rating = $review->rating; // Voto della recensione
+                                                            $maxRating = 5; // Numero massimo di stelle
+                                                        @endphp
 
-
-
-
-    {{-- <h2 class="mt-3">Recensioni</h2>
-        @if ($reviews->count() > 0)
-            <div class="mt-4">
-                <ul class="list-group">
-                    @foreach ($reviews as $review)
-                        <li class="list-group-item">
-                            <p><strong>Utente:</strong> {{ $review->user->name }}</p>
-                            <p><strong>Voto:</strong> {{ $review->rating }} SU 5</p>
-                            <p><strong>Commento:</strong> {{ $review->review }}</p>
-                        </li>
-                    @endforeach
-                </ul>
+                                                        @for ($i = 1; $i <= $maxRating; $i++)
+                                                            @if ($i <= $rating)
+                                                                <i class="bi bi-star-fill"></i>
+                                                                <!-- Stelle piene -->
+                                                            @else
+                                                                <i class="bi bi-star"></i>
+                                                                <!-- Stelle vuote -->
+                                                            @endif
+                                                        @endfor
+                                                    </p>
+                                                </div>
+                                                {{-- data recensione --}}
+                                                <p class="card-subtitle">
+                                                    <small class="text-body-secondary">Reviewed on
+                                                        {{ \Carbon\Carbon::parse($review->updated_at)->format('F d, Y') }}
+                                                    </small>
+                                                </p>
+                                                {{-- commento --}}
+                                                <p class="card-text">{{ $review->review }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="col-12">
+                                    <p class="card-subtitle">There are no reviews for this book yet</p>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
-        @else
-            <p>Non ci sono recensioni per questo libro.</p>
-        @endif
-    </div> --}}
+        </div>
+
+        {{-- lasciare una recensione --}}
+        <div class="mb-5">
+            <div class="container">
+                <div class="row ps-4 pt-3">
+                    <h5 class="text-dark mb-3 fw-light">Leave a review</h5>
+                    {{-- bottone per utenti loggati --}}
+                    @auth
+                        <div class="mt-4">
+                            {{-- <form method="POST" action="{{ route('reviews.store') }}">
+                                @csrf
+                                <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                <div>
+                                    <label for="rating">Rating (da 1 a 5):</label>
+                                    <input type="number" name="rating" id="rating" min="1" max="5"
+                                        required>
+                                </div>
+                                <div>
+                                    <label for="review">Recensione:</label>
+                                    <textarea name="review" id="review" rows="5" maxlength="1000" required></textarea>
+                                </div>
+                                <button type="submit">Invia recensione</button>
+                            </form> --}}
+                            <form method="POST" action="{{ route('reviews.store') }}">
+                                @csrf
+                                <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                <input type="hidden" name="rating" id="rating" value="0">
+                                <div>
+                                    <label for="rating">Rating (da 1 a 5):</label>
+                                    <div class="stars">
+                                        <i class="bi bi-star star" data-value="1"></i>
+                                        <i class="bi bi-star star" data-value="2"></i>
+                                        <i class="bi bi-star star" data-value="3"></i>
+                                        <i class="bi bi-star star" data-value="4"></i>
+                                        <i class="bi bi-star star" data-value="5"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="review">Recensione:</label>
+                                    <textarea name="review" id="review" rows="5" maxlength="1000" required></textarea>
+                                </div>
+                                <button type="submit">Invia recensione</button>
+                            </form>
+                        </div>
+                    @endauth
+                    {{-- utenti non loggati --}}
+                    @guest
+                        <p><small class="fw-light">OPS! To leave a review, you must be <a href="{{ route('login') }}"
+                                    class="pink">logged in</a></small></p>
+                    @endguest
+                </div>
+            </div>
+        </div>
     </div>
+
+
 
 
 

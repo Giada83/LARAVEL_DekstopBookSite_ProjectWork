@@ -55,7 +55,7 @@
     padding: 5px 10px;
     border-radius: 0;
     color: #656573;
-    border: 1px solid #656573;
+    border: 1px solid #9e9ead;
     margin: 0 5px;
 }
 
@@ -100,4 +100,37 @@
 .star-ratings .half-star::before {
     content: "\f123"; /* Codice Unicode per la stella mezza */
     color: #ffc107; /* Colore della stella metà */
+}
+
+/* RECENSIONI */
+.rev-img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    outline: 1px solid lightgrey;
+}
+
+.rev-img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* form */
+.stars {
+    display: flex;
+    gap: 5px;
+}
+.star {
+    font-size: 2em;
+    cursor: pointer;
+    color: #ccc;
+}
+.star.checked {
+    color: gold;
 }
