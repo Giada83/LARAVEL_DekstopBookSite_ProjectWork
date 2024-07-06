@@ -1,0 +1,67 @@
+.max {
+    max-width: 230px;
+}
+
+.img-box,
+.img-show {
+    height: 330px;
+    width: 220px;
+}
+
+.outline {
+    outline: 1px solid lightgray;
+}
+
+.show-card {
+    text-align: left;
+    margin-right: 1rem;
+}
+
+.show-card p:first-of-type {
+    font-size: 1rem;
+    line-height: 1;
+    border-bottom: 1px solid #5c64f2;
+}
+
+.show-card p:nth-of-type(2) {
+    font-size: 0.8rem;
+    text-align: justify;
+    margin-bottom: 1rem;
+}
+
+.p-size {
+    font-size: 0.9rem;
+}
+
+/* PULSANTE PREFERITI */
+.favorite-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+.favorite-btn i {
+    font-size: 24px; /* Dimensione dell'icona */
+}
+
+/* STELLE RECENSIONI */
+.star-ratings {
+    display: inline-block;
+    font-size: 0.9rem; /* Dimensione delle stelle */
+    line-height: 1;
+}
+
+.star-ratings i {
+    font-size: 0.9rem; /* Dimensione ereditata dalle stelle */
+    color: #ffc107; /* Colore delle stelle piene e a metà */
+}
+
+.star-ratings .full-star::before {
+    content: "\f005"; /* Codice Unicode per la stella piena */
+    color: #ffc107; /* Colore delle stelle piene */
+}
+
+.star-ratings .half-star::before {
+    content: "\f123"; /* Codice Unicode per la stella mezza */
+    color: #ffc107; /* Colore della stella metà */
+}

@@ -8,6 +8,7 @@
 @import url("components/header.css");
 @import url("components/home.css");
 @import url("components/index.css");
+@import url("components/show.css");
 
 body {
     /* background-color: #f7f8f9; */

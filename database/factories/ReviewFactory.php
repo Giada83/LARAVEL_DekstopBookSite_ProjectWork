@@ -21,7 +21,8 @@ class ReviewFactory extends Factory
         return [
             'user_id' => User::inRandomOrder()->pluck('id')->first(),
             'book_id' => Book::inRandomOrder()->pluck('id')->first(),
-            'review' => $this->faker->paragraphs(rand(1, 3), true),
+            // 'review' => $this->faker->paragraphs(rand(1, 3), true),
+            'review' => $this->faker->realText(mt_rand(200, 500)),
             'rating' => $this->faker->numberBetween(1, 5),
         ];
     }

@@ -65,7 +65,7 @@ class BookController extends Controller
         }
 
         $books = $booksQuery->paginate(12);
-        $authors = Author::select(['id', 'name'])->get();
+        $authors = Author::select(['id', 'name', 'image'])->get();
         $categories = Category::all();
         $reviews = Review::all();
 

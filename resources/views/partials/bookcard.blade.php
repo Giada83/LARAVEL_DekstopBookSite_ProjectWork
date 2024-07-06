@@ -2,10 +2,20 @@
     {{-- link --}}
     <a href="{{ route('books.show', ['book' => $book->id]) }}" class="card-link">
         <div class="card h-100">
+
             {{-- image --}}
-            <img src="{{ $book->cover }}" class="card-img-top img-fluid" alt="cover">
-            {{-- <img src="{{ Storage::url($book->cover) }}" class="card-img-top" alt="cover"> --}}
-            <div class="card-body pt-1">
+            @if ($book->cover)
+                @if (Storage::exists($book->cover))
+                    <img src="{{ Storage::url($book->cover) }}" class="card-img-top img-fluid img-card" alt="Book cover">
+                @else
+                    <img src="{{ $book->cover }}" class="card-img-top img-fluid img-card" alt="Book cover">
+                @endif
+            @else
+                <img src="{{ asset('assets/image/no_cover.jpg') }}" class="card-img-top img-fluid img-card"
+                    alt="default cover">
+            @endif
+
+            <div class="card-body pt-1" class="card-img-top img-fluid" alt="Book cover of '{{ $book->title }}'">
                 {{-- title --}}
                 <h5 class="card-title fw-medium m-0">{{ $book->title }}</h5>
                 {{-- author --}}

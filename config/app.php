@@ -171,6 +171,7 @@ return [
 
         //picsum
         App\Providers\FakerServiceProvider::class,
+
     ])->toArray(),
 
     /*
