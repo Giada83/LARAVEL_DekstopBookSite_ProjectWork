@@ -35,13 +35,49 @@
 
 /* PULSANTE PREFERITI */
 .favorite-btn {
-    background: none;
-    border: none;
+    width: 220px;
+    background-color: #f2cbbd;
+    display: flex;
+    align-items: center;
+    padding: 5px 15px 4px 20px;
     cursor: pointer;
-    padding: 0;
+    border: none;
+    color: #232326;
 }
-.favorite-btn i {
-    font-size: 24px; /* Dimensione dell'icona */
+
+.favorite-btn:hover {
+    background-color: #f2c572;
+}
+
+/* STATO DI LETTURA */
+.custom-btn {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 0;
+    color: #656573;
+    border: 1px solid #656573;
+    margin: 0 5px;
+}
+
+/* .btn-custom:not(:focus):not(:active) {
+    background-color: #64a199; 
+    border-color: #64a199;
+    color: white;
+} */
+
+.btn-custom,
+.btn-custom:hover,
+.btn-custom:focus,
+.btn-custom:active {
+    background-color: #f2c572;
+    color: #3e3e43;
+    border: none;
+}
+
+.custom-btn:hover {
+    background-color: #f0dec6; /* Colore verde quando si passa sopra col mouse */
+    border: none;
+    color: #656573;
 }
 
 /* STELLE RECENSIONI */

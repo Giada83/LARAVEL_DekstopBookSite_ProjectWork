@@ -44,7 +44,7 @@
                 </div>
 
                 {{-- card --}}
-                <div class="card mb-3">
+                <div class="card mb-4">
                     <div class="row g-0 ">
                         <div class="col-md-3 max me-2">
                             {{-- image --}}
@@ -82,114 +82,113 @@
                 </div>
                 {{-- fine card --}}
 
-
-
-
-
-
-
-
-
-                {{-- <div>
-                    @if ($book->users()->where('user_id', auth()->id())->wherePivot('is_favorite', true)->exists())
-                        <form action="{{ route('books.removeFromFavorites', $book) }}" method="POST"
-                            style="display: inline;">
-                            @csrf
-                            <button type="submit" class="favorite-btn">
-                                <i class="bi bi-heart-fill"></i>
-                            </button>
-                        </form>
-                    @else
-                        <form action="{{ route('books.addToFavorites', $book) }}" method="POST" style="display: inline;">
-                            @csrf
-                            <button type="submit" class="favorite-btn">
-                                <i class="bi bi-heart"></i>
-                            </button>
-                        </form>
-                    @endif
-                </div> --}}
-
-            </div>
-
-        </div>
-        {{-- <div class="card mb-5" style="width: 25rem;">
-
-                    <div>
+                <div class="d-flex">
+                    {{-- pulsante preferiti --}}
+                    <div class="me-3">
                         @if ($book->users()->where('user_id', auth()->id())->wherePivot('is_favorite', true)->exists())
-                            <form action="{{ route('books.removeFromFavorites', $book) }}" method="POST">
+                            <form action="{{ route('books.removeFromFavorites', $book) }}" method="POST"
+                                style="display: inline;">
                                 @csrf
-                                <button type="submit" class="btn btn-danger">Rimuovi dai preferiti</button>
+                                <button type="submit" class="favorite-btn">
+                                    <i class="bi bi-heart-fill pink"></i>
+                                    <span class="ms-2 fw-normal">Added to Favorites</span>
+                                </button>
                             </form>
                         @else
-                            <form action="{{ route('books.addToFavorites', $book) }}" method="POST">
+                            <form action="{{ route('books.addToFavorites', $book) }}" method="POST"
+                                style="display: inline;">
                                 @csrf
-                                <button type="submit" class="btn btn-primary">Aggiungi ai preferiti</button>
+                                <button type="submit" class="favorite-btn">
+                                    <i class="bi bi-heart pink"></i>
+                                    <span class="ms-2 fw-normal">Add to Favorites</span>
+                                </button>
                             </form>
                         @endif
                     </div>
 
-                    <div class="mt-3">
+                    {{-- stato di lettura --}}
+                    <div>
+                        {{-- <form action="{{ route('updateBookStatus', $book) }}" method="POST">
+                            @csrf
+                            <div class="btn-group" role="group" aria-label="Stato di lettura">
+                                <button type="submit" class="btn @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'want_to_read')->exists()) btn-primary @endif"
+                                    name="status" value="want_to_read">Want to read</button>
+                                <button type="submit" class="btn @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'reading')->exists()) btn-primary @endif"
+                                    name="status" value="reading">Now Reading</button>
+                                <button type="submit" class="btn @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'already_read')->exists()) btn-primary @endif"
+                                    name="status" value="already_read">Already Read</button>
+                            </div>
+                        </form> --}}
                         <form action="{{ route('updateBookStatus', $book) }}" method="POST">
                             @csrf
                             <div class="btn-group" role="group" aria-label="Stato di lettura">
                                 <button type="submit"
-                                    class="btn btn-outline-primary @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'already_read')->exists()) btn-primary @endif"
-                                    name="status" value="already_read">Già letto</button>
+                                    class="btn custom-btn @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'want_to_read')->exists()) btn-custom @endif"
+                                    name="status" value="want_to_read">Want to read</button>
                                 <button type="submit"
-                                    class="btn btn-outline-primary @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'reading')->exists()) btn-primary @endif"
-                                    name="status" value="reading">In lettura</button>
+                                    class="btn custom-btn @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'reading')->exists()) btn-custom @endif"
+                                    name="status" value="reading">Now Reading</button>
                                 <button type="submit"
-                                    class="btn btn-outline-primary @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'want_to_read')->exists()) btn-primary @endif"
-                                    name="status" value="want_to_read">Da leggere</button>
+                                    class="btn custom-btn @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'already_read')->exists()) btn-custom @endif"
+                                    name="status" value="already_read">Already Read</button>
                             </div>
                         </form>
                     </div>
+                </div>
 
-                    <h2 class="mt-3">Recensioni</h2>
-                    @if ($reviews->count() > 0)
-                        <div class="mt-4">
-                            <ul class="list-group">
-                                @foreach ($reviews as $review)
-                                    <li class="list-group-item">
-                                        <p><strong>Utente:</strong> {{ $review->user->name }}</p>
-                                        <p><strong>Voto:</strong> {{ $review->rating }} SU 5</p>
-                                        <p><strong>Commento:</strong> {{ $review->review }}</p>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @else
-                        <p>Non ci sono recensioni per questo libro.</p>
-                    @endif
-                </div> 
-        </div> --}}
-
-
-
-
-
-        {{-- Form per le recensioni --}}
-        {{-- Bottone per lasciare una recensione --}}
-        @auth
-            <div class="mt-4">
-                <form method="POST" action="{{ route('reviews.store') }}">
-                    @csrf
-                    <input type="hidden" name="book_id" value="{{ $book->id }}">
-                    <div>
-                        <label for="rating">Rating (da 1 a 5):</label>
-                        <input type="number" name="rating" id="rating" min="1" max="5" required>
-                    </div>
-                    <div>
-                        <label for="review">Recensione:</label>
-                        <textarea name="review" id="review" rows="5" maxlength="1000" required></textarea>
-                    </div>
-                    <button type="submit">Invia recensione</button>
-                </form>
             </div>
-        @endauth
+        </div>
 
-        @guest
-            {{-- <p class="mt-4">Per lasciare una recensione devi effettuare l'accesso.</p> --}}
-        @endguest
+    </div>
 
-    @endsection
+
+
+
+    {{-- <h2 class="mt-3">Recensioni</h2>
+        @if ($reviews->count() > 0)
+            <div class="mt-4">
+                <ul class="list-group">
+                    @foreach ($reviews as $review)
+                        <li class="list-group-item">
+                            <p><strong>Utente:</strong> {{ $review->user->name }}</p>
+                            <p><strong>Voto:</strong> {{ $review->rating }} SU 5</p>
+                            <p><strong>Commento:</strong> {{ $review->review }}</p>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @else
+            <p>Non ci sono recensioni per questo libro.</p>
+        @endif
+    </div> --}}
+    </div>
+
+
+
+
+
+    {{-- Form per le recensioni --}}
+    {{-- Bottone per lasciare una recensione --}}
+    {{-- @auth
+        <div class="mt-4">
+            <form method="POST" action="{{ route('reviews.store') }}">
+                @csrf
+                <input type="hidden" name="book_id" value="{{ $book->id }}">
+                <div>
+                    <label for="rating">Rating (da 1 a 5):</label>
+                    <input type="number" name="rating" id="rating" min="1" max="5" required>
+                </div>
+                <div>
+                    <label for="review">Recensione:</label>
+                    <textarea name="review" id="review" rows="5" maxlength="1000" required></textarea>
+                </div>
+                <button type="submit">Invia recensione</button>
+            </form>
+        </div>
+    @endauth --}}
+
+    @guest
+        {{-- <p class="mt-4">Per lasciare una recensione devi effettuare l'accesso.</p> --}}
+    @endguest
+
+@endsection
