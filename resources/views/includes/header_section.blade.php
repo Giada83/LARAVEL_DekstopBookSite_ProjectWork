@@ -4,7 +4,7 @@
             {{-- colonna sinistra --}}
             <div class="col-md-6 header-text mt-4 text-white">
                 {{-- testo --}}
-                <p>Expand your mind, reading a book</p>
+                <p class="pt-2">Expand your mind, reading a book</p>
                 <p>Reading books is a wonderful way to spend your time.
                     Create an account and start building your personal library.
                     Make a wishlist, organize your reading schedule, and earn achievements.
@@ -34,17 +34,22 @@
                 </div>
 
                 {{-- Bottoni --}}
-                @guest
-                    <div class="mt-4">
+                <div class="mt-4">
+                    @guest
                         <button class="button" onclick="window.location.href='{{ route('register') }}'">
                             <a href="{{ route('login') }}"><span class="button-content fw-normal">Join for free</span></a>
                         </button>
-                        <button class="button yellow ms-3" ">
-                                                                                                                                <a href="{{ route('books.index') }}"><span class="button-content fw-normal">Browse
-                                                                                                                            book</span></a>
-                                                                                                                        </button>
-                                                                                                                    </div>
-                @endguest
+                    @endguest
+                    @auth
+                        <button class="button" onclick="window.location.href='{{ route('register') }}'">
+                            <a href="{{ route('books.favorites') }}"><span class="button-content fw-normal">My Favorites</a>
+                        </button>
+                    @endauth
+                    <button class="button yellow ms-3"><a href="{{ route('books.index') }}"><span
+                                class="button-content fw-normal">Browse
+                                book</span></a>
+                    </button>
+                </div>
             </div>
 
             {{-- colonna destra --}}

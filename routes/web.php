@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/books/{book}/unfavorite', [BookController::class, 'removeFromFavorites'])->name('books.removeFromFavorites');
     // visualizza preferiti
     Route::get('/favorites', [BookController::class, 'favorites'])->name('books.favorites');
-    //aggionare lo stato del libro
+    //aggiornare lo stato del libro
     Route::post('/books/{book}/update-status', [BookController::class, 'updateBookStatus'])->name('updateBookStatus');
     //rimuovere lo stato del libro
     Route::post('/books/{book}/remove-status', [BookController::class, 'removeBookStatus'])->name('books.removeBookStatus');

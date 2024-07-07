@@ -1,16 +1,21 @@
-@include('partials.head')
+<!doctype html>
+<html lang="en">
 
-<header>
-    @include('includes.navbar')
-</header>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ReadWish ~ @yield('title')</title>
+
+    @include('partials.head')
+</head>
+
+{{-- NAVBAR --}}
+@include('includes.navbar')
 
 <body>
     @yield('content')
 
-    <footer>
-        <div style="background-color:purple; height:2rem"></div>
-    </footer>
-
+    {{-- SCRIPT --}}
     @include('partials.script')
 </body>
 

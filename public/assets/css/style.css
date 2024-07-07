@@ -9,6 +9,7 @@
 @import url("components/home.css");
 @import url("components/index.css");
 @import url("components/show.css");
+@import url("components/sidebar.css");
 
 body {
     /* background-color: #f7f8f9; */
@@ -50,6 +51,10 @@ h5 {
     color: #5c64f2;
 }
 
+.darkgrey {
+    color: #232326;
+}
+
 .p-size {
     font-size: 0.9rem;
 }
@@ -57,4 +62,8 @@ h5 {
 .p-size-small {
     font-size: 0.8rem;
     line-height: 1.3;
+}
+
+.title-section {
+    background-color: #f5e8df;
 }

@@ -215,15 +215,11 @@
         <div class="mb-5">
             <div class="container">
                 <div class="row ps-4 pt-3">
-                    {{-- <h4 class="text-dark fw-light">Write a review</h4>
-                    <small class="mb-3 p-size-small">Share your thoughts with other readers! </small> --}}
                     <div class="d-flex align-items-baseline">
                         <h4 class="text-dark fw-light ">Write a review</h4>
                         <div class="divider"></div>
                         <small class="mb-3 p-size-small ">Share your thoughts with other readers!</small>
                     </div>
-
-
                     {{-- utenti loggati --}}
                     @auth
                         <form method="POST" action="{{ route('reviews.store') }}">

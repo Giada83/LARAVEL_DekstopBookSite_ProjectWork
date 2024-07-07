@@ -1,0 +1,38 @@
+.sidebar-container {
+    /* background-color: #d0d9d4; */
+    background-color: #f2e4d8;
+    font-family: Roboto;
+}
+
+.side-p {
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding-top: 0.7rem;
+    margin-bottom: 0;
+}
+
+.sidebar-link li a {
+    color: #232326;
+    font-size: 0.9rem;
+}
+
+.sidebar-link li a:hover,
+.sidebar-link li a:focus {
+    color: #5f23e1;
+}
+
+.sidebar-link li a i {
+    padding-right: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+.sidebar-link li a span {
+    line-height: 0;
+    font-weight: 300;
+}
+
+hr {
+    color: #232326;
+    width: 85%;
+}
