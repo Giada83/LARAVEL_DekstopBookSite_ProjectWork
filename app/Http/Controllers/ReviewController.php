@@ -22,7 +22,7 @@ class ReviewController extends Controller
         // Controlla se l'utente ha già una recensione per questo libro
         $existingReview = $request->user()->reviews()->where('book_id', $request->input('book_id'))->first();
         if ($existingReview) {
-            Session::flash('review_error', 'Hai già inviato una recensione per questo libro.');
+            Session::flash('review_error', true); // Imposta un flag per indicare che c'è un errore
             return redirect()->back();
         }
 
@@ -35,7 +35,7 @@ class ReviewController extends Controller
         // Salvataggio della recensione associata all'utente autenticato
         $request->user()->reviews()->save($review);
 
-        return redirect()->back()->with('success', 'Recensione aggiunta con successo!');
+        return redirect()->back()->with('success', 'Review added successfully!');
     }
 
     /**
@@ -72,7 +72,7 @@ class ReviewController extends Controller
         // Salva la recensione aggiornata
         $review->save();
 
-        return redirect()->route('user.reviews')->with('updRev_success', 'Recensione aggiornata con successo!');
+        return redirect()->route('user.reviews')->with('updRev_success', 'Review updated successfully!');
     }
 
     /**
@@ -85,7 +85,7 @@ class ReviewController extends Controller
         $review->delete();
 
         return redirect()->route('user.reviews')
-            ->with('success', 'Recensione eliminata con successo!')
+            ->with('success', 'Review deleted successfully!')
             ->with('bookId', $bookId);
     }
 }

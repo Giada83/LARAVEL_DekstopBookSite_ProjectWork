@@ -23,7 +23,8 @@ Route::resource('books', BookController::class)->except('index', 'show');
 Route::middleware('auth')->group(function () {
     //Rotte per il model Review - esclusa la index
     Route::resource('reviews', ReviewController::class)->except('index');
-    Route::get('/user/reviews', [UserController::class, 'userReviews'])->name('user.reviews'); //recensioni utente
+    // Visualizzare recensioni per un utente
+    Route::get('/user/reviews', [UserController::class, 'userReviews'])->name('user.reviews');
 });
 
 // Dashboard

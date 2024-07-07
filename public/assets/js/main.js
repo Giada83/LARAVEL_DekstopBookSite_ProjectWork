@@ -31,31 +31,32 @@ clearIcon.addEventListener("click", function () {
 
 // D: form invio recensioni con stelle dinamiche
 document.addEventListener("DOMContentLoaded", (event) => {
-    const stars = document.querySelectorAll(".star");
-    const ratingInput = document.getElementById("rating");
+    const stars = document.querySelectorAll(".rating label");
 
     stars.forEach((star) => {
-        star.addEventListener("click", () => {
-            ratingInput.value = star.getAttribute("data-value");
-            updateStars(ratingInput.value);
-        });
+        star.addEventListener("click", function () {
+            const ratingValue = this.getAttribute("data-value");
+            document.querySelector('input[name="rating"]').value = ratingValue;
 
-        star.addEventListener("mouseover", () => {
-            updateStars(star.getAttribute("data-value"));
-        });
+            // Rimuovi la classe 'selected' da tutte le stelle
+            stars.forEach((s) => s.classList.remove("selected"));
 
-        star.addEventListener("mouseout", () => {
-            updateStars(ratingInput.value);
+            // Aggiungi la classe 'selected' alla stella cliccata e a tutte le stelle precedenti
+            this.classList.add("selected");
+            const previousSiblings = getPreviousSiblings(this);
+            previousSiblings.forEach((sibling) =>
+                sibling.classList.add("selected")
+            );
         });
     });
 
-    function updateStars(rating) {
-        stars.forEach((star) => {
-            if (star.getAttribute("data-value") <= rating) {
-                star.classList.add("checked");
-            } else {
-                star.classList.remove("checked");
-            }
-        });
+    function getPreviousSiblings(element) {
+        const siblings = [];
+        let prev = element.previousElementSibling;
+        while (prev) {
+            siblings.unshift(prev);
+            prev = prev.previousElementSibling;
+        }
+        return siblings;
     }
 });

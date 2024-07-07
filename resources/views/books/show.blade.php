@@ -10,6 +10,20 @@
         <div class="container">
 
             <div class="p-4">
+
+                {{-- messaggi di errore e successo --}}
+                @include('partials.ErrSuccAlert')
+                {{-- recensione già lasciata --}}
+                @if (Session::has('review_error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        You have already submitted a review for this book.
+                        You can modify or delete your review from your <a href="{{ route('dashboard') }}"
+                            class="alert-link">dashboard</a>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
+                {{-- title --}}
                 <h3 class="fw-light mb-0">{{ $book->title }}</h3>
 
                 {{-- stelle recensioni --}}
@@ -74,7 +88,13 @@
                                 </p>
                                 <p class="p-size mb-1"><span class="fw-light">Language</span>: {{ $book->language }}
                                 </p>
-                                <p class="card-text pt-3"><small class="text-body-secondary">Last updated
+                                <p class="card-text mt-3">
+                                    @foreach ($book->categories as $category)
+                                        <small class="p-1 me-1" style="background-color: {{ $category->color }};">
+                                            {{ $category->name }}</small>
+                                    @endforeach
+                                </p>
+                                <p class="card-text"><small class="text-body-secondary">Last updated
                                         {{ \Carbon\Carbon::parse($book->updated_at)->format('d-m-Y') }}</small></p>
                             </div>
                         </div>
@@ -140,7 +160,7 @@
                             @if ($reviews->count() > 0)
                                 @foreach ($reviews as $review)
                                     <div class="col-10">
-                                        <div class="card mb-4">
+                                        <div class="card mb-2">
                                             <div class="card-body text-start">
                                                 {{-- user --}}
                                                 <div class="card-title d-flex align-items-center mb-0 p-0">
@@ -169,13 +189,13 @@
                                                     </p>
                                                 </div>
                                                 {{-- data recensione --}}
-                                                <p class="card-subtitle">
+                                                <p class="card-text mb-1">
                                                     <small class="text-body-secondary">Reviewed on
                                                         {{ \Carbon\Carbon::parse($review->updated_at)->format('F d, Y') }}
                                                     </small>
                                                 </p>
                                                 {{-- commento --}}
-                                                <p class="card-text">{{ $review->review }}</p>
+                                                <p class="p-size-small">{{ $review->review }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -195,84 +215,52 @@
         <div class="mb-5">
             <div class="container">
                 <div class="row ps-4 pt-3">
-                    <h5 class="text-dark mb-3 fw-light">Leave a review</h5>
-                    {{-- bottone per utenti loggati --}}
+                    {{-- <h4 class="text-dark fw-light">Write a review</h4>
+                    <small class="mb-3 p-size-small">Share your thoughts with other readers! </small> --}}
+                    <div class="d-flex align-items-baseline">
+                        <h4 class="text-dark fw-light ">Write a review</h4>
+                        <div class="divider"></div>
+                        <small class="mb-3 p-size-small ">Share your thoughts with other readers!</small>
+                    </div>
+
+
+                    {{-- utenti loggati --}}
                     @auth
-                        <div class="mt-4">
-                            {{-- <form method="POST" action="{{ route('reviews.store') }}">
-                                @csrf
-                                <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                <div>
-                                    <label for="rating">Rating (da 1 a 5):</label>
-                                    <input type="number" name="rating" id="rating" min="1" max="5"
-                                        required>
+                        <form method="POST" action="{{ route('reviews.store') }}">
+                            @csrf
+                            <input type="hidden" name="book_id" value="{{ $book->id }}">
+                            <div class="form-group d-flex align-items-center">
+                                <label for="rating" class="me-2">Rating:</label>
+                                <div class="rating d-flex">
+                                    @for ($i = 5; $i >= 1; $i--)
+                                        <input type="radio" name="rating" id="rating-{{ $i }}"
+                                            value="{{ $i }}">
+                                        <label for="rating-{{ $i }}" class="star-label ml-1"
+                                            data-value="{{ $i }}">&#9733;</label>
+                                    @endfor
                                 </div>
-                                <div>
-                                    <label for="review">Recensione:</label>
-                                    <textarea name="review" id="review" rows="5" maxlength="1000" required></textarea>
-                                </div>
-                                <button type="submit">Invia recensione</button>
-                            </form> --}}
-                            <form method="POST" action="{{ route('reviews.store') }}">
-                                @csrf
-                                <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                <input type="hidden" name="rating" id="rating" value="0">
-                                <div>
-                                    <label for="rating">Rating (da 1 a 5):</label>
-                                    <div class="stars">
-                                        <i class="bi bi-star star" data-value="1"></i>
-                                        <i class="bi bi-star star" data-value="2"></i>
-                                        <i class="bi bi-star star" data-value="3"></i>
-                                        <i class="bi bi-star star" data-value="4"></i>
-                                        <i class="bi bi-star star" data-value="5"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="review">Recensione:</label>
-                                    <textarea name="review" id="review" rows="5" maxlength="1000" required></textarea>
-                                </div>
-                                <button type="submit">Invia recensione</button>
-                            </form>
-                        </div>
+                                @error('rating')
+                                    <div class="invalid-feedback d-block ml-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="review">Review:</label>
+                                <textarea class="form-control @error('review') is-invalid @enderror rev-text" name="review" id="review"
+                                    rows="5" maxlength="1000" placeholder="Share your thoughts about the book"></textarea>
+                                @error('review')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <button type="submit" class="rev-btn mt-3">Submit review</button>
+                        </form>
                     @endauth
                     {{-- utenti non loggati --}}
                     @guest
-                        <p><small class="fw-light">OPS! To leave a review, you must be <a href="{{ route('login') }}"
-                                    class="pink">logged in</a></small></p>
+                        <p class="mt-2"><small class="fw-light">OPS! To leave a review, you must be <a
+                                    href="{{ route('login') }}" class="pink">logged in</a></small></p>
                     @endguest
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-    {{-- Form per le recensioni --}}
-    {{-- Bottone per lasciare una recensione --}}
-    {{-- @auth
-        <div class="mt-4">
-            <form method="POST" action="{{ route('reviews.store') }}">
-                @csrf
-                <input type="hidden" name="book_id" value="{{ $book->id }}">
-                <div>
-                    <label for="rating">Rating (da 1 a 5):</label>
-                    <input type="number" name="rating" id="rating" min="1" max="5" required>
-                </div>
-                <div>
-                    <label for="review">Recensione:</label>
-                    <textarea name="review" id="review" rows="5" maxlength="1000" required></textarea>
-                </div>
-                <button type="submit">Invia recensione</button>
-            </form>
-        </div>
-    @endauth --}}
-
-    @guest
-        {{-- <p class="mt-4">Per lasciare una recensione devi effettuare l'accesso.</p> --}}
-    @endguest
-
 @endsection

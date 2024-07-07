@@ -7,8 +7,11 @@
 <body>
     @yield('content')
 
-    @include('partials.script')
+    <footer>
+        <div style="background-color:purple; height:2rem"></div>
+    </footer>
 
+    @include('partials.script')
 </body>
 
 </html>

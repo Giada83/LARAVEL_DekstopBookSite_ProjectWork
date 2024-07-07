@@ -29,10 +29,6 @@
     margin-bottom: 1rem;
 }
 
-.p-size {
-    font-size: 0.9rem;
-}
-
 /* PULSANTE PREFERITI */
 .favorite-btn {
     width: 220px;
@@ -122,15 +118,61 @@
 }
 
 /* form */
-.stars {
+.rating {
     display: flex;
-    gap: 5px;
+    flex-direction: row-reverse; /* Inverti l'ordine visivo delle stelle */
+    justify-content: flex-end;
 }
-.star {
+
+.rating input[type="radio"] {
+    display: none;
+}
+
+.rating label {
     font-size: 2em;
+    color: #ddd;
     cursor: pointer;
-    color: #ccc;
 }
-.star.checked {
+
+.rating input[type="radio"]:checked ~ label {
     color: gold;
+}
+
+.rating label:hover,
+.rating label:hover ~ label {
+    color: gold;
+}
+
+.rating label.selected,
+.rating label:hover,
+.rating label:hover ~ label {
+    color: gold;
+}
+
+.rev-text {
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+
+.rev-text::placeholder {
+    font-size: 0.8rem;
+    color: rgb(180, 178, 178);
+}
+
+.rev-btn {
+    border: none;
+    padding: 0.5rem;
+    color: white;
+    font-size: 0.9rem;
+    background-color: #5c64f2;
+}
+.rev-btn:hover {
+    background-color: #f2c572;
+    color: #3e3e43;
+}
+
+.divider {
+    border-left: 1px solid #8f8e8e;
+    height: 1.2em;
+    margin: 0 8px;
 }
