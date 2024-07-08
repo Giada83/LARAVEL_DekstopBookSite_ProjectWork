@@ -38,12 +38,12 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-0 align-middle">
+                            <a href="{{ route('user.library') }}" class="nav-link px-0 align-middle">
                                 <i class="bi bi-book"></i><span class="ms-1 d-none d-sm-inline">My
                                     Library</span></a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-0 align-middle">
+                            <a href="{{ route('user.favorites') }}" class="nav-link px-0 align-middle">
                                 <i class="bi-bookmark-heart"></i><span class="ms-1 d-none d-sm-inline">Favorites</span>
                             </a>
                         </li>

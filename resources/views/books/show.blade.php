@@ -9,6 +9,15 @@
         </div>
         <div class="container">
 
+            {{-- go back --}}
+            <div class="row">
+                <div class="col-md-12 text-end hover">
+                    <a href="{{ route('books.index') }}" class=" link-underline link-underline-opacity-0 ">
+                        <i class="bi bi-arrow-left-square"></i> Go Back
+                    </a>
+                </div>
+            </div>
+
             <div class="p-4">
 
                 {{-- messaggi di errore e successo --}}

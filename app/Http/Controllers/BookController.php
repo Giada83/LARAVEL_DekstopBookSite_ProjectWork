@@ -247,11 +247,17 @@ class BookController extends Controller
     {
         $user = Auth::user(); // Ottiene l'utente autenticato
         $favoriteBooks = $user->books()->wherePivot('is_favorite', true)->get(); // Ottiene tutti i libri dell'utente che sono contrassegnati come preferiti
+
+        return view('user.favorites', compact('favoriteBooks')); // Carica la vista 'books.favorites' passando l'elenco dei libri preferiti
+    }
+
+    public function library()
+    {
+        $user = Auth::user();
         $alreadyRead = $user->books()->wherePivot('status', 'already_read')->get();
         $reading = $user->books()->wherePivot('status', 'reading')->get();
         $wantToRead = $user->books()->wherePivot('status', 'want_to_read')->get();
-
-        return view('books.favorites', compact('favoriteBooks', 'alreadyRead', 'reading', 'wantToRead')); // Carica la vista 'books.favorites' passando l'elenco dei libri preferiti
+        return view('user.library', compact('alreadyRead', 'reading', 'wantToRead'));
     }
 
     // AGGIORNARE STATUS DEL LIBRO

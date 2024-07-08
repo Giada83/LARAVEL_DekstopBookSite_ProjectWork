@@ -7,7 +7,7 @@
 @section('content')
 
     {{-- HEADER --}}
-    <div class="title-section py-2">
+    {{-- <div class="title-section py-2">
         <div class="container">
             <div class="row d-flex align-items-center">
                 <div class="col-3"><img src="{{ asset('assets/image/books.jpg') }}" alt="" class="img-fluid"></div>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- BOOKS --}}
     <!-- Ultimi libri inseriti -->

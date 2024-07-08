@@ -42,7 +42,7 @@
                     @endguest
                     @auth
                         <button class="button" onclick="window.location.href='{{ route('register') }}'">
-                            <a href="{{ route('books.favorites') }}"><span class="button-content fw-normal">My Favorites</a>
+                            <a href="{{ route('dashboard') }}"><span class="button-content fw-normal">Dashboard</a>
                         </button>
                     @endauth
                     <button class="button yellow ms-3"><a href="{{ route('books.index') }}"><span

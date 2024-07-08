@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.sidebar')
 
 @section('content')
     <div class="container">
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        {{-- Sezione "Già Letto" --}}
+        {{-- Sezione "Già Letto"
         <div class="mt-4">
             <h2>Già Letto</h2>
             <div class="row">
@@ -49,7 +49,7 @@
         </div>
 
         {{-- Sezione "In Lettura" --}}
-        <div class="mt-4">
+        {{-- <div class="mt-4">
             <h2>In Lettura</h2>
             <div class="row">
                 @foreach ($reading as $book)
@@ -69,10 +69,10 @@
                     </div>
                 @endforeach
             </div>
-        </div>
+        </div> --}}
 
         {{-- Sezione "Da Leggere" --}}
-        <div class="mt-4">
+        {{-- <div class="mt-4">
             <h2>Da Leggere</h2>
             <div class="row">
                 @foreach ($wantToRead as $book)
@@ -92,7 +92,7 @@
                     </div>
                 @endforeach
             </div>
-        </div>
+        </div>  --}}
 
     </div>
 @endsection

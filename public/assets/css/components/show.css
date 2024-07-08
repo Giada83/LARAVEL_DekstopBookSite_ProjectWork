@@ -176,3 +176,7 @@
     height: 1.2em;
     margin: 0 8px;
 }
+
+.hover a:hover {
+    color: #5c64f2;
+}
