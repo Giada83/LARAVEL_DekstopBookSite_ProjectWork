@@ -14,17 +14,27 @@
         <div class="row flex-nowrap">
             <div class="col-auto col-md-2 px-sm-2 px-0 sidebar-container">
                 <div
-                    class="d-flex flex-column align-items-center align-items-center align-items-sm-start  px-4 pt-2 min-vh-100">
-                    <div
+                    class="d-flex flex-column align-items-center align-items-center align-items-sm-start px-4 pt-2 min-vh-100">
+                    {{-- <div
                         class="d-flex align-items-center pb-4 mb-md-3 me-md-auto text-decoration-none flex-column border-bottom border-secondary border-opacity-50">
-                        <span class="fs-3 d-none d-sm-inline darkgrey py-2">ReadWish</span>
+                        <span class="fs-3 d-none d-sm-inline darkgrey pt-2 pb-3 fw-medium">ReadWish</span>
                         <div class="rev-img">
                             <img src="{{ Auth::user()->image_profile }}" alt="image profile">
                         </div>
                         <p class="side-p">{{ Auth::user()->name }}</p>
-                        <small class="card-text text-secondary">{{ Auth::user()->email }}</small>
+                        <small class="card-text text-secondary">sdnanfldsfsfsfsanfa@jdsnfiabfila</small>
+                    </div> --}}
+                    <div
+                        class="d-flex align-items-center pb-4 mb-md-3 me-md-auto text-decoration-none flex-column border-bottom border-secondary border-opacity-50 w-100">
+                        <span
+                            class="fs-3 d-none d-sm-inline pt-2 pb-3 fw-medium text-center w-100 purple">ReadWish</span>
+                        <div class="side-img">
+                            <img src="{{ Auth::user()->image_profile }}" alt="image profile">
+                        </div>
+                        <p class="side-p text-wrap w-100 text-center">{{ Auth::user()->name }}</p>
+                        <small
+                            class="card-text text-secondary text-wrap w-100 text-center">{{ Auth::user()->email }}</small>
                     </div>
-
                     <ul class="nav nav-pills flex-column mb-0 align-items-center align-items-sm-start sidebar-link "
                         id="menu">
                         <li class="nav-item w-100">
@@ -78,6 +88,7 @@
                 </div>
             </div>
             <div class="col py-3">
+                @include('layouts.sidebar-nav')
                 @yield('content')
             </div>
         </div>
