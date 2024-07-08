@@ -27,3 +27,28 @@
 .lib-title {
     letter-spacing: -2px;
 }
+
+.lib-drop {
+    border-radius: 0;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+}
+
+.lib-img {
+    height: 150px;
+    width: 150px;
+}
+
+.lib-card {
+    text-decoration: none;
+}
+
+.btn-delete {
+    border: none;
+    background-color: #b695bf;
+}
+
+.btn-delete:hover {
+    background-color: #7e77a6;
+    color: white;
+}

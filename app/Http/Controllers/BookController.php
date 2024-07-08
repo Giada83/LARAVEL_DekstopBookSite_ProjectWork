@@ -241,8 +241,7 @@ class BookController extends Controller
         return redirect()->back();
     }
 
-    // PAGINA DEI FAVORITI
-    // visualizza la pagina dei libri preferiti dell'utente
+    // PAGINA DEI FAVORITI - visualizza la pagina dei libri preferiti dell'utente
     public function favorites()
     {
         $user = Auth::user(); // Ottiene l'utente autenticato
