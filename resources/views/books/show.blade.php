@@ -21,7 +21,7 @@
             <div class="p-4">
 
                 {{-- messaggi di errore e successo --}}
-                @include('partials.ErrSuccAlert')
+                @include('partials.alert')
                 {{-- recensione già lasciata --}}
                 @if (Session::has('review_error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">

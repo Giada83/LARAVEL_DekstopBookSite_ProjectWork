@@ -11,22 +11,21 @@
             @foreach ($favoriteBooks as $book)
                 <div class="col-md-6 mb-3">
                     <div class="border p-2 rounded border-1 shadow-sm">
-                        <div class="card" style="max-width: 540px;">
-                            <div class="row g-0 d-flex align-items-center">
+                        <div class="card">
+                            <div class="row g-0 d-flex align-items-start">
                                 {{-- immagine --}}
                                 <div class="col-md-4 ">
                                     <a href="{{ route('books.show', ['book' => $book->id]) }}">
                                         @if ($book->cover)
                                             @if (Storage::exists($book->cover))
-                                                <img src="{{ Storage::url($book->cover) }}"
-                                                    class="card-img-top img-fluid img-card rounded" alt="Book cover">
-                                            @else
-                                                <img src="{{ $book->cover }}" class="img-fluid rounded-start rounded"
+                                                <img src="{{ Storage::url($book->cover) }}" class="img-fluid rounded"
                                                     alt="Book cover">
+                                            @else
+                                                <img src="{{ $book->cover }}" class="img-fluid rounded" alt="Book cover">
                                             @endif
                                         @else
-                                            <img src="{{ asset('assets/image/no_cover.jpg') }}"
-                                                class="card-img-top img-fluid img-card rounded" alt="default cover">
+                                            <img src="{{ asset('assets/image/no_cover.jpg') }}" class="img-fluid rounded"
+                                                alt="default cover">
                                         @endif
                                     </a>
                                 </div>

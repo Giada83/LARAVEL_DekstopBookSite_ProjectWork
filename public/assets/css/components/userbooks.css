@@ -23,3 +23,7 @@
     font-weight: 300;
     color: rgb(109, 108, 108);
 }
+
+.lib-title {
+    letter-spacing: -2px;
+}

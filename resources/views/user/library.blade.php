@@ -1,77 +1,65 @@
 @extends('layouts.sidebar')
-
+@section('title', 'Library')
 @section('content')
-    <div class="container">
-        <h1>I miei libri</h1>
 
-        {{-- Sezione "Già Letto" --}}
-        <div class="mt-4">
-            <h2>Già Letto</h2>
-            <div class="row">
-                @foreach ($alreadyRead as $book)
-                    <div class="col-md-4 mb-3">
-                        <div class="card">
-                            <div class="card-header">{{ $book->title }}</div>
-                            <div class="card-body">
-                                <p>ID: {{ $book->id }}</p>
-                                <!-- Aggiungi qui il form per aggiornare lo stato se necessario -->
-                                <!-- Bottone per rimuovere lo stato -->
-                                <form action="{{ route('books.removeBookStatus', $book->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit">Rimuovi Stato</button>
-                                </form>
-                            </div>
+    <div class="px-3">
+        {{-- WANT TO READ --}}
+        <h3 class="darkgrey fw-light lib-title mb-3">Want to read</h3>
+        <div class="row mb-4">
+            @foreach ($wantToRead as $book)
+                <div class="col-md-2">
+                    <div class="card h-100">
+                        @include('partials.librarycard')
+                        <div class="card-footer">
+                            <form action="{{ route('updateBookStatus', $book) }}" method="POST">
+                                @csrf
+                                <div class="dropdown">
+                                    <button class="btn-fav dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Cambia stato
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li>
+                                            <button type="submit"
+                                                class="dropdown-item @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'reading')->exists()) btn-custom @endif"
+                                                name="status" value="reading">Reading</button>
+                                        </li>
+                                        <li>
+                                            <button type="submit"
+                                                class="dropdown-item @if ($book->users()->where('user_id', auth()->id())->wherePivot('status', 'read')->exists()) btn-custom @endif"
+                                                name="status" value="reading">Read</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
 
-        {{-- Sezione "In Lettura" --}}
-        <div class="mt-4">
-            <h2>In Lettura</h2>
-            <div class="row">
-                @foreach ($reading as $book)
-                    <div class="col-md-4 mb-3">
-                        <div class="card">
-                            <div class="card-header">{{ $book->title }}</div>
-                            <div class="card-body">
-                                <p>ID: {{ $book->id }}</p>
-                                <!-- Aggiungi qui il form per aggiornare lo stato se necessario -->
-                                <!-- Bottone per rimuovere lo stato -->
-                                <form action="{{ route('books.removeBookStatus', $book->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit">Rimuovi Stato</button>
-                                </form>
-                            </div>
-                        </div>
+        {{-- READING --}}
+        <h3 class="darkgrey fw-light lib-title mb-3">Currently Reading</h3>
+        <div class="row mb-4">
+            @foreach ($reading as $book)
+                <div class="col-md-2">
+                    <div class="card h-100">
+                        @include('partials.librarycard')
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
 
-        {{-- Sezione "Da Leggere" --}}
-        <div class="mt-4">
-            <h2>Da Leggere</h2>
-            <div class="row">
-                @foreach ($wantToRead as $book)
-                    <div class="col-md-4 mb-3">
-                        <div class="card">
-                            <div class="card-header">{{ $book->title }}</div>
-                            <div class="card-body">
-                                <p>ID: {{ $book->id }}</p>
-                                <!-- Aggiungi qui il form per aggiornare lo stato se necessario -->
-                                <!-- Bottone per rimuovere lo stato -->
-                                <form action="{{ route('books.removeBookStatus', $book->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit">Rimuovi Stato</button>
-                                </form>
-                            </div>
-                        </div>
+        {{-- READ --}}
+        <h3 class="darkgrey fw-light lib-title mb-3">Read</h3>
+        <div class="row mb-4">
+            @foreach ($alreadyRead as $book)
+                <div class="col-md-2">
+                    <div class="card h-100">
+                        @include('partials.librarycard')
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
-
     </div>
 @endsection

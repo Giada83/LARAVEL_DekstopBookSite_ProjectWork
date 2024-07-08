@@ -1,4 +1,4 @@
-@extends('template.base')
+@extends('layouts.base')
 
 @section('content')
     {{-- messaggio di errore  --}}
