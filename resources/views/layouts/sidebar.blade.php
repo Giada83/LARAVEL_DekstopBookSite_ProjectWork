@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="col py-3">
-                @include('layouts.sidebar-nav')
+                @include('partials.sidebar-nav')
                 @yield('content')
             </div>
         </div>

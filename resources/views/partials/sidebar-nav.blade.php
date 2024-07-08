@@ -1,4 +1,4 @@
-<div class="row ps-3 py-2 mb-4">
+<div class="row ps-3 py-2 mb-3">
     <div>
         @php
             $hour = date('H');

@@ -1,0 +1,25 @@
+/* FAVORITI */
+.btn-fav {
+    background-color: #f2e4d8;
+    /* outline: 1px solid lightgrey; */
+    border: none;
+    padding: 0 0.5rem;
+}
+
+.btn-fav:hover {
+    background-color: #c7dcdf;
+}
+
+.btn-fav div span {
+    font-size: 0.7rem;
+}
+
+.fav-title {
+    line-height: 1;
+}
+
+.fav-subtitle {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: rgb(109, 108, 108);
+}
