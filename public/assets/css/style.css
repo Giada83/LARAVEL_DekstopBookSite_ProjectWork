@@ -5,6 +5,7 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
 /* file css */
+@import url("components/style.css");
 @import url("components/header.css");
 @import url("components/home.css");
 @import url("components/index.css");
@@ -12,60 +13,3 @@
 @import url("components/sidebar.css");
 @import url("components/dashboard.css");
 @import url("components/userbooks.css");
-
-body {
-    /* background-color: #f7f8f9; */
-    background-color: #f5f5f5;
-    font-family: "Poppins", sans-serif;
-
-    font-weight: 400;
-    font-size: 1rem;
-}
-
-body,
-a {
-    color: rgb(46, 46, 46);
-}
-
-h1,
-h5 {
-    font-weight: 300;
-}
-
-h1 {
-    line-height: 0.7;
-}
-
-h5 {
-    color: white;
-    margin: 0;
-}
-
-.pink {
-    color: #fc6681;
-}
-
-.text-yellow {
-    color: #f2a007;
-}
-
-.purple {
-    color: #5c64f2;
-}
-
-.darkgrey {
-    color: #232326;
-}
-
-.p-size {
-    font-size: 0.9rem;
-}
-
-.p-size-small {
-    font-size: 0.8rem;
-    line-height: 1.3;
-}
-
-.title-section {
-    background-color: #f5e8df;
-}

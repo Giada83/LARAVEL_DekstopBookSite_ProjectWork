@@ -72,7 +72,7 @@ class ReviewController extends Controller
         // Salva la recensione aggiornata
         $review->save();
 
-        return redirect()->route('user.reviews')->with('updRev_success', 'Review updated successfully!');
+        return redirect()->route('user.reviews')->with('success', 'Review updated successfully!');
     }
 
     /**
@@ -85,7 +85,6 @@ class ReviewController extends Controller
         $review->delete();
 
         return redirect()->route('user.reviews')
-            ->with('success', 'Review deleted successfully!')
-            ->with('bookId', $bookId);
+            ->with('success', 'Review deleted successfully!');
     }
 }

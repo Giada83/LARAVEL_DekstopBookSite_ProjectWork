@@ -36,8 +36,9 @@
                 {{-- Bottoni --}}
                 <div class="mt-4">
                     @guest
-                        <button class="button" onclick="window.location.href='{{ route('register') }}'">
-                            <a href="{{ route('login') }}"><span class="button-content fw-normal">Join for free</span></a>
+                        <button class="button">
+                            <a href="{{ route('register') }}" type="button"><span class="button-content fw-normal">Join for
+                                    free</span></a>
                         </button>
                     @endguest
                     @auth

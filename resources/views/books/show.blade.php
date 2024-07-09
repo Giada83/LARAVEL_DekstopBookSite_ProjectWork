@@ -12,7 +12,7 @@
             {{-- go back --}}
             <div class="row">
                 <div class="col-md-12 text-end hover">
-                    <a href="{{ route('books.index') }}" class=" link-underline link-underline-opacity-0 ">
+                    <a href="{{ url()->previous() }}" class=" link-underline link-underline-opacity-0 ">
                         <i class="bi bi-arrow-left-square"></i> Go Back
                     </a>
                 </div>

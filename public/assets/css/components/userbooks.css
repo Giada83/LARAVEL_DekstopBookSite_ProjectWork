@@ -21,8 +21,10 @@
 .fav-subtitle {
     font-size: 0.8rem;
     font-weight: 300;
-    color: rgb(109, 108, 108);
+    color: #6d6c6c;
 }
+
+/* STATO DI LETTURA */
 
 .lib-title {
     letter-spacing: -2px;
@@ -51,4 +53,29 @@
 .btn-delete:hover {
     background-color: #7e77a6;
     color: white;
+}
+
+/* REVIEWS */
+.btn-rev,
+.btn-rev-del {
+    font-size: 0.8rem;
+}
+
+.btn-rev {
+    padding: 2px 10px;
+}
+
+.btn-rev,
+.btn-rev-del:hover {
+    background-color: #f2e4d8;
+}
+
+.btn-rev:hover,
+.btn-rev-del {
+    background-color: #f2cbbd;
+}
+
+.btn-rev-del {
+    padding: 3px 10px;
+    border: none;
 }
