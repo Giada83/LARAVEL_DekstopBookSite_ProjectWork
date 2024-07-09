@@ -1,4 +1,4 @@
-<div class="row p-3 mb-4 border-bottom d-flex justify-content-between">
+<div class="row p-3 mb-2 border-bottom d-flex justify-content-between">
     <div class="col-md-6">
         @php
             $hour = date('H');

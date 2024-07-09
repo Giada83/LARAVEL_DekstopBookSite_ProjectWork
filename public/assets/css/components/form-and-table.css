@@ -1,0 +1,88 @@
+/* FORM */
+/* label */
+.form-group {
+    margin-bottom: 0.7rem;
+}
+
+.form-group label {
+    margin-bottom: 0.4rem;
+}
+
+.form-group label,
+.form-group input {
+    font-size: 1rem;
+    color: #46443f;
+}
+
+.btn-form {
+    border: none;
+    font-size: 0.9rem;
+    background-color: #f2cbbd;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    color: #2e2d2a;
+}
+
+.btn-form:hover {
+    background-color: #8abfbf;
+}
+
+/* TABLE */
+.table-custom tbody tr td {
+    background-color: transparent;
+}
+.table-custom thead th {
+    background-color: transparent;
+    color: grey;
+    font-weight: 300;
+    font-size: 0.8rem;
+}
+
+.tab-img img {
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+}
+
+tbody tr td {
+    font-size: 0.8rem;
+}
+
+.upd:hover {
+    color: #8abfbf;
+    font-weight: 400;
+}
+
+.del {
+    color: #f29f80;
+}
+
+.del:hover {
+    color: #f2cbbd;
+    font-weight: 400;
+}
+
+.table-custom .tab-img {
+    vertical-align: middle;
+}
+
+.table-custom td {
+    vertical-align: middle;
+}
+
+.table-custom .align-middle p {
+    margin-bottom: 0;
+}
+
+.btn-add {
+    background-color: #c7dcdf;
+    border: none;
+    padding: 5px 10px;
+    color: #2e2d2a;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.btn-add:hover {
+    background-color: #8abfbf;
+}

@@ -29,7 +29,7 @@
                         </li>
                         {{-- Tabella libri --}}
                         <li>
-                            <a href="#" class="nav-link px-0 align-middle">
+                            <a href="{{ route('admin.books_index') }}" class="nav-link px-0 align-middle">
                                 <i class="bi bi-book"></i><span class="ms-1 d-none d-sm-inline">Books</span></a>
                         </li>
                         {{-- Tabella autori --}}

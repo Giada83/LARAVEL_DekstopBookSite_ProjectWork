@@ -109,7 +109,7 @@ class BookController extends Controller
         // Gestione delle categorie
         $book->categories()->sync($request->input('categories'));
 
-        return redirect()->route('books.index')->with('success', 'Book added successfully');
+        return redirect()->route('admin.books_index')->with('success', 'Book added successfully');
     }
 
     public function show(Book $book)
@@ -175,7 +175,7 @@ class BookController extends Controller
 
         $book->delete();
 
-        return redirect()->route('books.index')->with('success', 'Book deleted successfully');
+        return redirect()->route('admin.books_index')->with('success', 'Book deleted successfully');
     }
 
     //BARRA DI RICERCA IN HOMEPAGE

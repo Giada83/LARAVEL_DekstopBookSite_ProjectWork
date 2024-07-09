@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\GoogleSocialiteController;
@@ -13,18 +14,21 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::redirect('/home', '/'); // Rotta di reindirizzamento 
 
 // rotte Google Login
-Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']);  // redirect to google login
-Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);    // callback route after google account chosen
+Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']);
+// callback route after google account chosen
+Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);
 
 // Visualizzazione e ricerca libri
 Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 
 // Amministratore - CRUD 
+// admin-dashboard
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth'])->name('admin.dashboard');
-
+// admin-crud
+Route::get('/admin/books', [AdminController::class, 'index'])->name('admin.books_index');
 Route::resource('books', BookController::class)->except('index', 'show');
 
 // Dettaglio libro
