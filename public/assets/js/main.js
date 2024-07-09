@@ -1,14 +1,17 @@
 // A. navbar che cambia colore
 document.addEventListener("DOMContentLoaded", function () {
-    var navbar = document.querySelector(".custom-navbar");
+    var navbar = document.getElementById("custom-navbar");
 
-    window.addEventListener("scroll", function () {
-        if (window.scrollY > 0) {
-            navbar.classList.add("scrolled");
-        } else {
-            navbar.classList.remove("scrolled");
-        }
-    });
+    if (navbar) {
+        // Verifica se l'elemento è stato trovato
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 0) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+    }
 });
 
 // B. bottone 'reset' che ripristina la ricerca dei libri
@@ -22,11 +25,16 @@ function resetForm() {
 }
 
 // C. 'x' all'interno della barra di ricerca in books.index
-const clearIcon = document.querySelector(".clear-icon");
-const searchInput = document.getElementById("search");
+document.addEventListener("DOMContentLoaded", function () {
+    const clearIcon = document.querySelector(".clear-icon");
+    const searchInput = document.getElementById("search");
 
-clearIcon.addEventListener("click", function () {
-    searchInput.value = "";
+    if (clearIcon && searchInput) {
+        // Verifica se entrambi gli elementi sono stati trovati
+        clearIcon.addEventListener("click", function () {
+            searchInput.value = "";
+        });
+    }
 });
 
 // D: form invio recensioni con stelle dinamiche

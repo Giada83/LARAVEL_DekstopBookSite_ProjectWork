@@ -23,7 +23,7 @@ class StoreBookRequest extends FormRequest
     {
         return [
             'author_id' => 'required|exists:authors,id',
-            'title' => 'required|string|max:100',
+            'title' => 'required|string|min:5|max:100',
             'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string|min:150|max:1000',
             'year' => 'required|integer|min:1901|max:' . date('Y'), //anno corrente

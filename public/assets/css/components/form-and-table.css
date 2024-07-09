@@ -27,6 +27,11 @@
     background-color: #8abfbf;
 }
 
+.text-font::placeholder {
+    font-size: 0.8rem;
+    color: grey;
+}
+
 /* TABLE */
 .table-custom tbody tr td {
     background-color: transparent;
@@ -85,4 +90,50 @@ tbody tr td {
 
 .btn-add:hover {
     background-color: #8abfbf;
+}
+
+.form-control-file {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.preview-container {
+    margin-top: 10px;
+    position: relative;
+}
+
+.preview-container img {
+    width: 200px;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.remove-btn {
+    background-color: #7e77a6;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.remove-btn:hover {
+    background-color: #d9b4cf;
+}
+
+p.text-danger {
+    font-size: 0.8rem;
+    margin: 0.5rem;
+}
+
+p.text-danger::before {
+    content: "* ";
+    color: red;
 }

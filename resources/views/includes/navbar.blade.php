@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg fixed-top py-1 custom-navbar">
+<nav class="navbar navbar-expand-lg fixed-top py-1 custom-navbar" id="custom-navbar">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">ReadWish</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
