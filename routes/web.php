@@ -6,16 +6,25 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Auth\GoogleSocialiteController;
 
 // Homepage
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::redirect('/home', '/'); // Rotta di reindirizzamento 
+
+// rotte Google Login
+Route::get('auth/google', [GoogleSocialiteController::class, 'redirectToGoogle']);  // redirect to google login
+Route::get('callback/google', [GoogleSocialiteController::class, 'handleCallback']);    // callback route after google account chosen
 
 // Visualizzazione e ricerca libri
 Route::get('/books/search', [BookController::class, 'search'])->name('books.search');
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 
 // Amministratore - CRUD 
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->middleware(['auth'])->name('admin.dashboard');
+
 Route::resource('books', BookController::class)->except('index', 'show');
 
 // Dettaglio libro
@@ -54,6 +63,5 @@ Route::middleware(['auth'])->group(function () {
     //rimuovere lo stato del libro
     Route::post('/books/{book}/remove-status', [BookController::class, 'removeBookStatus'])->name('books.removeBookStatus');
 });
-
 
 require __DIR__ . '/auth.php';

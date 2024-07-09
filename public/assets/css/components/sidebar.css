@@ -72,3 +72,63 @@ hr {
     border-bottom: 3px solid #5c64f2;
     margin-top: 0.1rem;
 }
+
+/* ADMIN SIDEBAR */
+.admin-sidebar {
+    background-color: #c7dcdf;
+}
+
+.admin-link li a {
+    color: #232326;
+    margin-bottom: 1rem;
+}
+
+.admin-link li a:hover {
+    color: #6593a6;
+}
+
+.admin-link li a span:hover {
+    font-weight: 400;
+}
+
+.adm-title,
+.adm-title a {
+    color: #6593a6;
+}
+
+.adm-title a:hover {
+    color: #7e77a6;
+}
+
+.dash-box .first,
+.dash-box .second,
+.dash-box .third {
+    border-radius: 40px;
+}
+
+.dash-box .first {
+    background-color: #c2eaf5;
+}
+
+.dash-box .second {
+    background-color: #dfebe9;
+}
+
+.dash-box .third {
+    background-color: #f4e6f5;
+}
+
+.img-adm img {
+    height: 140px;
+}
+
+.adm-title h3 {
+    line-height: 1;
+}
+
+.subtle {
+    font-size: 1.5rem;
+    letter-spacing: 0.3rem;
+    margin: 0;
+    line-height: 0.5;
+}

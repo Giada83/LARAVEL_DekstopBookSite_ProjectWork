@@ -67,7 +67,7 @@
                     </div>
                 @endforeach
             @else
-                <div class="col-12 col-md-6 text-left pt-2">
+                <div class="col-12 col-md-4 text-left pt-2">
                     <div class="d-flex align-items-center flex-column">
                         <img src="{{ asset('assets/image/favorite.png') }}" alt="girl with book" class="lib-img img-fluid">
                         <p class="p-size fw-light">No books have been added to favorite yet</p>
