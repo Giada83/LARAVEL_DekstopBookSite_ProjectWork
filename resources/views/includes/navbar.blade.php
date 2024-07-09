@@ -5,13 +5,25 @@
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        {{-- link --}}
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ route('home') }}">Home</a>
                 </li>
             </ul>
+            @auth
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ route('user.favorites') }}">Favorites</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ route('user.library') }}">Library</a>
+                    </li>
+                </ul>
+            @endauth
 
+            {{-- autenticazione e logout --}}
             <ul class="navbar-nav ms-auto">
                 <!-- Autenticazione -->
                 @guest
@@ -32,8 +44,9 @@
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ Auth::user()->name }}
                         </a>
-                        {{-- logout --}}
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                            {{-- logout --}}
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form-navbar').submit();">
                                 {{ __('Logout') }}
@@ -42,6 +55,7 @@
                                 style="display: none;">
                                 @csrf
                             </form>
+
                         </div>
                     </li>
                 @endguest

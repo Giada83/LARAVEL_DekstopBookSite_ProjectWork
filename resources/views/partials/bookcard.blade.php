@@ -19,8 +19,8 @@
                 {{-- title --}}
                 <h5 class="card-title fw-medium m-0">{{ $book->title }}</h5>
                 {{-- author --}}
-                <p class="card-text mb-1">by <span class="fw-medium">{{ $book->author->name }}
-                        {{ $book->author->surname }}</span></p>
+                <p class="card-text mb-1"><span class="fw-light">by</span> {{ $book->author->name }}
+                    {{ $book->author->surname }}</p>
                 {{-- reviews --}}
                 @if ($book->reviews->count() > 0)
                     <p class="card-text mb-1"><i class="bi bi-star-fill text-yellow"></i>
