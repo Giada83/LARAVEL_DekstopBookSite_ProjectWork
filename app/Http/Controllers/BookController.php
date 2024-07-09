@@ -161,7 +161,7 @@ class BookController extends Controller
         // Gestione delle categorie
         $book->categories()->sync($request->input('categories'));
 
-        return redirect()->route('books.index')->with('success', 'Book updated successfully');
+        return redirect()->route('admin.books_index')->with('success', 'Book updated successfully');
     }
 
 
