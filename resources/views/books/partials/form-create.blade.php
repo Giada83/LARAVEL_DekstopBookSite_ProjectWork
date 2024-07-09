@@ -39,7 +39,7 @@
 
     <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control text-font" id="description" name="description" rows="3"
+        <textarea class="form-control text-font" id="description" name="description" rows="6"
             placeholder="Please enter a text containing a minimum of 150 characters and a maximum of 1000 characters" required>{{ old('description') }}</textarea>
         @if ($errors->has('description'))
             <p class="text-danger">{{ $errors->first('description') }}</p>

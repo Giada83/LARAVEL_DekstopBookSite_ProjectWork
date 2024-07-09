@@ -26,7 +26,7 @@
                                     {{-- data modifica/creazione --}}
                                     <p class="p-size-small mb-1">
                                         <small class="span-back">
-                                            {{ \Carbon\Carbon::parse($review->updated_at)->format('F d, Y') }}
+                                            {{ \Carbon\Carbon::parse($review->updated_at)->isoFormat('MMMM DD, YYYY [at] HH:mm') }}
                                         </small>
                                     </p>
                                     {{-- titolo --}}

@@ -120,7 +120,7 @@
 /* form */
 .rating {
     display: flex;
-    flex-direction: row-reverse; /* Inverti l'ordine visivo delle stelle */
+    flex-direction: row-reverse;
     justify-content: flex-end;
 }
 
@@ -128,7 +128,7 @@
     display: none;
 }
 
-.rating label {
+.rating label.textlab {
     font-size: 2em;
     color: #ddd;
     cursor: pointer;
@@ -143,9 +143,9 @@
     color: gold;
 }
 
-.rating label.selected,
-.rating label:hover,
-.rating label:hover ~ label {
+/* .rating label.selected, */
+.rating label:hover
+/*, .rating label:hover ~ label */ {
     color: gold;
 }
 

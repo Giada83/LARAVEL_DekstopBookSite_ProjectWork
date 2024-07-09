@@ -48,7 +48,10 @@
                                         <p class="mb-0">{{ $book->author->surname }}</p>
                                     </td>
                                     <td class="align-middle">
-                                        <p class="fst-italic ">{{ Str::limit($book->title, 100) }}</p>
+                                        <a href="{{ route('books.show', ['book' => $book->id]) }}"
+                                            class="text-decoration-none">
+                                            <p class="fst-italic ">{{ Str::limit($book->title, 100) }}</p>
+                                        </a>
                                     </td>
                                     <td class="align-middle">{{ $book->year }}</td>
                                     <td class="align-middle">{{ $book->language }}</td>
@@ -59,6 +62,8 @@
                                             @endif
                                         @endforeach
                                     </td>
+
+
                                     <td class="align-middle">
                                         {{-- modifica --}}
                                         <a href="{{ route('books.edit', $book->id) }}"
@@ -75,15 +80,16 @@
                                             @method('DELETE')
                                             <a href="#" class="text-decoration-none"
                                                 onclick="event.preventDefault();
-                                                                if(confirm('Are you sure to delete the book: {{ addslashes($book->title) }} with id {{ $book->id }}?')) {
-                                                                    document.getElementById('delete-form-{{ $book->id }}').submit();
-                                                                }">
+                                                                    if(confirm('Are you sure to delete the book: {{ addslashes($book->title) }} with id {{ $book->id }}?')) {
+                                                                        document.getElementById('delete-form-{{ $book->id }}').submit();
+                                                                    }">
                                                 <span class="p-size del">
                                                     Delete
                                                 </span>
                                             </a>
                                         </form>
                                     </td>
+
                                 </tr>
                             @endforeach
                         </tbody>

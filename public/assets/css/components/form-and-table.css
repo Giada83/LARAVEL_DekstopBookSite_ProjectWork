@@ -27,6 +27,10 @@
     background-color: #8abfbf;
 }
 
+.text-font {
+    font-size: 0.8rem;
+}
+
 .text-font::placeholder {
     font-size: 0.8rem;
     color: grey;

@@ -26,7 +26,7 @@
                 @if (Session::has('review_error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         You have already submitted a review for this book.
-                        You can modify or delete your review from your <a href="{{ route('dashboard') }}"
+                        You can modify or delete your review from your <a href="{{ route('user.reviews') }}"
                             class="alert-link">dashboard</a>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
@@ -210,8 +210,11 @@
                                     </div>
                                 @endforeach
                             @else
-                                <div class="col-12">
-                                    <p class="card-subtitle">There are no reviews for this book yet</p>
+                                <div class="row d-flex justify-content-start ps-4">
+                                    <div class="col-md-4">
+                                        <img src="{{ asset('assets/image/no-reviews-yet.png') }}" class="img-fluid">
+                                    </div>
+                                    <p class="fs-6 fw-light mb-0 mt-1">There are no reviews for this book yet</p>
                                 </div>
                             @endif
                         </div>
@@ -240,7 +243,7 @@
                                     @for ($i = 5; $i >= 1; $i--)
                                         <input type="radio" name="rating" id="rating-{{ $i }}"
                                             value="{{ $i }}">
-                                        <label for="rating-{{ $i }}" class="star-label ml-1"
+                                        <label for="rating-{{ $i }}" class="star-label ml-1 textlab"
                                             data-value="{{ $i }}">&#9733;</label>
                                     @endfor
                                 </div>
@@ -248,6 +251,7 @@
                                     <div class="invalid-feedback d-block ml-2">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="form-group">
                                 <label for="review">Review:</label>
                                 <textarea class="form-control @error('review') is-invalid @enderror rev-text" name="review" id="review"
