@@ -45,6 +45,9 @@
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            @admin
+                                <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+                            @endadmin
                             <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
                             {{-- logout --}}
                             <a class="dropdown-item" href="{{ route('logout') }}"

@@ -25,15 +25,17 @@ Route::get('/books/search', [BookController::class, 'search'])->name('books.sear
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 
 // Amministratore - CRUD 
-// admin-dashboard
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth'])->name('admin.dashboard');
-// admin-crud
-Route::get('/admin/books', [AdminController::class, 'index'])->name('admin.books_index');
-Route::resource('books', BookController::class)->except('index', 'show');
-Route::resource('authors', AuthorController::class)->except('show');
-
+Route::middleware(['auth', 'admin'])->group(function () {
+    // admin-dashboard
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->middleware(['auth'])->name('admin.dashboard');
+    // admin-crud
+    Route::get('/admin/books', [AdminController::class, 'index'])->name('admin.books_index');
+    Route::resource('books', BookController::class)->except('index', 'show');
+    // autori crud
+    Route::resource('authors', AuthorController::class)->except('show');
+});
 
 // Dettaglio libro
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
