@@ -21,9 +21,13 @@ class HomeController extends Controller
             ->take(5)
             ->get();
 
+        // libri random
+        $randomBooks = Book::with('author', 'categories', 'reviews')->inRandomOrder()->take(5)->get();
+
         return view('home', [
             'latestBooks' => $latestBooks,
             'topRatedBooks' => $topRatedBooks,
+            'randomBooks' => $randomBooks,
         ]);
     }
 }

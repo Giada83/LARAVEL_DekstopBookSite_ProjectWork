@@ -1,15 +1,42 @@
-.col-dash {
-    display: flex;
-    background-color: rgba(138, 191, 191, 0.8);
-    min-height: 90vh;
-    border-radius: 50px;
-    padding: 2rem;
-    margin-left: 3rem;
-    box-shadow: 10px 10px 20px rgba(128, 128, 128, 0.5);
+.badge-img img {
+    max-height: 120px;
+    max-width: 120px;
 }
 
-.img-dash {
-    max-width: 300px;
-    /* max-height: 35L0px; */
-    object-fit: contain;
+.dash-col {
+    background-color: #dbe7dd;
+}
+
+.dash-col1 {
+    background-color: #c7cfdc;
+}
+
+.dash-img-profile img {
+    border-radius: 50%;
+    overflow: hidden;
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.dash-img-profile p {
+    margin: 0;
+}
+
+.dash-img-profile p:first-of-type {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+.dash-img-profile p:nth-of-type(2) {
+    font-size: 0.7rem;
+    color: rgb(91, 90, 90);
+    font-weight: 300;
+}
+
+.dash-img-profile p:nth-of-type(3) {
+    font-size: 0.8rem;
+    font-weight: 300;
+    margin-top: 0.5rem;
+    color: #464aa6;
 }

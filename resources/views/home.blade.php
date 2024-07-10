@@ -6,31 +6,6 @@
 
 @section('content')
 
-    {{-- HEADER --}}
-    {{-- <div class="title-section py-2">
-        <div class="container">
-            <div class="row d-flex align-items-center">
-                <div class="col-3"><img src="{{ asset('assets/image/books.jpg') }}" alt="" class="img-fluid"></div>
-                <div class="col-9">
-                    <h1 class="purple">Unlock the joy of reading with <u>ReadWish</u></h1>
-                    </h1>
-                    <h2 class="fs-5 fw-light mb-3 pink">Your gateway to a personalized reading experience!</h2>
-                    <span class="rectangle">
-                        <h5>Why Choose ReadWish?</h5>
-                    </span>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-dot"></i> Explore new genres and authors with ease</li>
-                        <li><i class="bi bi-dot"></i> Leave and read reviews on books</li>
-                        <li><i class="bi bi-dot"></i> Earn achievements for reaching
-                            reading
-                            milestones
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
     {{-- BOOKS --}}
     <!-- Ultimi libri inseriti -->
     <div class="container mb-3">
@@ -43,7 +18,7 @@
     </div>
 
     {{-- Libri con votazione migliore --}}
-    <div class="title-section mb-5 pt-4">
+    <div class="title-section mb-3 pt-4">
         <div class="container">
             <h3 class="text-center">Best rating books</h3>
             <div class="row d-flex mt-3 justify-content-center">
@@ -52,6 +27,16 @@
                 @endforeach
                 <a href="{{ route('books.index') }}" class="text-center mb-4 fw-medium">View all books</a>
             </div>
+        </div>
+    </div>
+
+    {{-- libri random --}}
+    <div class="container mb-3">
+        <h3 class="text-center mt-4">Our Suggestions: Today's Picks</h3>
+        <div class="row d-flex mt-3 justify-content-center">
+            @foreach ($randomBooks as $book)
+                @include('partials.bookcard')
+            @endforeach
         </div>
     </div>
 

@@ -16,5 +16,8 @@
 <!-- Script personalizzato -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
+{{-- sweetalert --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 {{-- Additional scripts --}}
 @yield('scripts')

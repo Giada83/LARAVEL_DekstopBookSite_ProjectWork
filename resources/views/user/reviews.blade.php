@@ -11,10 +11,10 @@
             <div class="row">
 
                 @if ($reviews->isEmpty())
-                    <div class="col-12 col-md-6 text-left pt-2">
+                    <div class="col-12 col-md-5 text-left pt-4">
                         <div class="d-flex align-items-center flex-column">
                             <img src="{{ asset('assets/image/no-reviews.png') }}" alt="book" class="lib-img img-fluid">
-                            <p class="p-size fw-light">You haven't written any reviews yet</p>
+                            <p class="p-size fw-light">You haven't written any reviews yet!</p>
                         </div>
                     </div>
                 @else

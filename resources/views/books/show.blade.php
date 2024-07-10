@@ -20,6 +20,12 @@
 
             <div class="p-4">
 
+                {{-- @if (session('badge_message'))
+                    <div class="alert alert-success">
+                        {{ session('badge_message') }}
+                    </div>
+                @endif --}}
+
                 {{-- messaggi di errore e successo --}}
                 @include('partials.alert')
                 {{-- recensione già lasciata --}}
@@ -272,4 +278,21 @@
             </div>
         </div>
     </div>
+
+    {{-- visualizzazoine del badge vinto --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const badgeMessage = {!! json_encode(session('badge_message')) !!}; // Ottieni il messaggio del badge dalla sessione
+            const badgeIcon = {!! json_encode(session('badge_icon')) !!}; // Ottieni l'URL dell'immagine del badge dalla sessione
+
+            if (badgeMessage) {
+                Swal.fire({
+                    title: 'Congratulations!',
+                    html: `<p>${badgeMessage}</p><img src="${badgeIcon}" alt="Badge Icon" style="width: 150px; height: 150px;">`,
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    </script>
 @endsection

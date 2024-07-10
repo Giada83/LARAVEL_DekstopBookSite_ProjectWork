@@ -24,6 +24,9 @@ class UserController extends Controller
     public function dashboard()
     {
         $user = Auth::user(); // Recupera l'utente autenticato
-        return view('user.dashboard', compact('user'));
+
+        $randomBooks = Book::with('author', 'categories', 'reviews')->inRandomOrder()->take(6)->get();
+
+        return view('user.dashboard', compact('user', 'randomBooks'));
     }
 }

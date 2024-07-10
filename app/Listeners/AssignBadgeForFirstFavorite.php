@@ -18,8 +18,9 @@ class AssignBadgeForFirstFavorite
             if ($badge && !$user->badges->contains($badge->id)) {
                 $user->badges()->attach($badge->id);
 
-                // Imposta il messaggio di notifica flash
-                session()->flash('badge_message', "Congratulations, You have won the badge : \"{$badge->name}\"!");
+                // messaggio di notifica flash
+                session()->flash('badge_message', "You have won the badge: \"{$badge->name}\"!");
+                session()->flash('badge_icon', asset($badge->icon));
             }
         }
     }
