@@ -10,8 +10,16 @@
                 <div class="row">
                     <h6 class="mb-3">Achievements</h6>
                     @if ($user->badges->isEmpty())
-                        <p class="p-size">You haven't earned any badges or achievements yet</p>
-                        <p>Discover them all!</p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="col-md-5">
+                                <img src="{{ asset('assets/image/achievement.png') }}" alt="peoples with books"
+                                    class="img-fluid">
+                            </div>
+                            <div class="col-md-6">
+                                <p class="p-size-small m-0">You haven't earned any badges or achievements yet</p>
+                                <p class="p-sizevm-0 purple">Discover them all!</p>
+                            </div>
+                        </div>
                     @else
                         @foreach ($user->badges as $badge)
                             <div class="col-md-4 badge-img">

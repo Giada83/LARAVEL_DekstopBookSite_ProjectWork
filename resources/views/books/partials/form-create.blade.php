@@ -14,6 +14,8 @@
         @endif
     </div>
 
+    <div class="my-3"> <a class="btn-add" href="{{ route('authors.create') }}">Add new author</a></div>
+
     <div class="form-group">
         <label for="title">Title</label>
         <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" required>

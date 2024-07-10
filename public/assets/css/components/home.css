@@ -68,3 +68,47 @@
     margin-right: 3px;
     border-radius: 3px;
 }
+
+/* FOOTER */
+.footer {
+    background-color: #5c64f2;
+    color: white;
+    font-size: 0.9rem;
+    padding: 1.5rem 0 1rem 0;
+}
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer .icon {
+    font-size: 1.1rem;
+}
+
+.footer .icon:hover,
+.footer-copy a:hover {
+    color: #f29f80;
+}
+
+.footer-title h5 {
+    font-size: 0.9rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+}
+
+.foot-ul li a {
+    font-size: 0.7rem;
+    font-weight: 300;
+    margin: 0;
+    text-decoration: none;
+}
+
+.foot-ul li a:hover {
+    color: #f29f80;
+    text-decoration: none;
+}
+
+.footer-copy {
+    font-size: 0.7rem;
+    font-weight: 300;
+}

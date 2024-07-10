@@ -15,6 +15,8 @@
 <body>
     @yield('content')
 
+    @include('includes.footer')
+
     {{-- SCRIPT --}}
     @include('partials.script')
 </body>

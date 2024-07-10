@@ -25,7 +25,7 @@
                         </div>
                         <p class="side-p text-wrap w-100 text-center">{{ Auth::user()->name }}</p>
                     </div>
-                    <ul class="nav nav-pills flex-column mb-0 align-items-center align-items-sm-start sidebar-link mb-sm-auto"
+                    <ul class="nav nav-pills flex-column mb-0 align-items-center align-items-sm-start sidebar-link mb-sm-auto mt-2"
                         id="menu">
                         {{-- home --}}
                         <li class="nav-item w-100">
