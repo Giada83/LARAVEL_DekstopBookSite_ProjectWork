@@ -66,6 +66,14 @@ class BookController extends Controller
         }
 
         $books = $booksQuery->paginate(12);
+        // Mantieni i parametri di query string nella paginazione
+        $books->appends([
+            'sort' => $sort,
+            'category' => $categoryId,
+            'search' => $search,
+        ]);
+
+
         $authors = Author::select(['id', 'name', 'image'])->get();
         $categories = Category::all();
         $reviews = Review::all();
@@ -195,6 +203,8 @@ class BookController extends Controller
             })
             ->paginate(6);
 
+        // Mantiene il parametro di query string 'search' nella paginazione
+        $books->appends(['search' => $search]);
 
         return view('books.search', compact('books', 'search'));
     }

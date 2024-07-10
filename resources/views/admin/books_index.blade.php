@@ -165,10 +165,9 @@
                         </tbody>
                     </table>
 
+                    {{-- paginazione --}}
                     {{ $books->appends(['sort' => $sort, 'order' => $order, 'search' => request('search')])->links() }}
                 </div>
-                {{-- paginazione
-                <span class="mt-2">{{ $books->links() }}</span> --}}
             </div>
         </div>
     </div>
