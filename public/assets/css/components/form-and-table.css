@@ -37,10 +37,12 @@
 }
 
 /* TABLE */
-.table-custom tbody tr td {
+.table-custom tbody tr td,
+.table-custom thead th {
     background-color: transparent;
 }
-.table-custom thead th {
+
+.table-custom thead th a {
     background-color: transparent;
     color: grey;
     font-weight: 300;
@@ -83,8 +85,8 @@ tbody tr td {
     margin-bottom: 0;
 }
 
-.btn-add {
-    background-color: #c7dcdf;
+.btn-add,
+.btn-add-1 {
     border: none;
     padding: 5px 10px;
     color: #2e2d2a;
@@ -92,10 +94,56 @@ tbody tr td {
     text-decoration: none;
 }
 
+.btn-add-1 {
+    background-color: #f29f80;
+}
+
+.btn-add-1:hover {
+    background-color: #f2cbbd;
+}
+
+.btn-add {
+    background-color: #c7dcdf;
+}
+
 .btn-add:hover {
     background-color: #8abfbf;
 }
 
+.adm-book-search form {
+    display: flex;
+    align-items: center;
+}
+
+.book-h {
+    margin: 0;
+    line-height: 2;
+}
+
+.adm-book-search form {
+    display: flex;
+    align-items: center;
+}
+.adm-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.adm-search-input {
+    padding: 5px 10px;
+    padding-left: 30px; /* spazio per l'icona */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.8rem;
+}
+.adm-search-icon {
+    position: absolute;
+    left: 10px;
+    color: #ccc;
+    margin-right: 0.5rem;
+}
+
+/* FORM */
 .form-control-file {
     display: block;
     margin-bottom: 10px;

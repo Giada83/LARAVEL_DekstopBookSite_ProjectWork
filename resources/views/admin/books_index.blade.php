@@ -10,33 +10,33 @@
                     <!-- messagi di avviso  -->
                     @include('partials.alert')
 
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="fw-light darkgrey mb-2">Books table</h5>
-                        <a class="btn-add" href="{{ route('books.create') }}">Add new book</a>
+                    {{-- titolo + search + button --}}
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-light darkgrey m-0 align-self-end">Books table</h5>
+                        <div class="d-flex align-items-center adm-book-search">
+                            <form action="{{ route('admin.books_index') }}" method="GET">
+                                <div class="adm-input-container">
+                                    <i class="bi bi-search adm-search-icon"></i>
+                                    <input type="text" name="search" placeholder="Search: Title, Author, Category"
+                                        class="adm-search-input">
+                                </div>
+                            </form>
+                            <button type="button" onclick="resetForm()" class="btn-add-1 ms-2">
+                                Reset</i>
+                            </button>
+                            <a class="btn-add ms-2" href="{{ route('books.create') }}">Add new book</a>
+                        </div>
                     </div>
 
-                    <form action="{{ route('admin.books_index') }}" method="GET">
-                        <input type="text" name="search" placeholder="Cerca per titolo, autore o categoria">
-                        <button type="submit">Cerca</button>
-                    </form>
-
+                    {{-- table --}}
                     <table class="table table-custom">
                         <thead>
-                            {{-- <tr>
-                                <th><span class="d-none">Cover</span></th>
-                                <th>AUTHOR</th>
-                                <th>TITLE</th>
-                                <th>YEAR</th>
-                                <th>LANGUAGE</th>
-                                <th>TAGS</th>
-                                <th></th>
-                            </tr> --}}
                             <tr>
                                 <th><span class="d-none">Cover</span></th>
                                 <th>
                                     <a href="{{ route('admin.books_index', ['sort' => 'surname', 'order' => $sort == 'surname' && $order == 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}"
                                         class="text-decoration-none">
-                                        Cognome Autore
+                                        AUTHOR
                                         @if ($sort == 'surname')
                                             <i
                                                 class="bi {{ $order == 'asc' ? 'bi-caret-up-fill' : 'bi-caret-down-fill' }}"></i>
@@ -48,7 +48,7 @@
                                 <th>
                                     <a href="{{ route('admin.books_index', ['sort' => 'title', 'order' => $sort == 'title' && $order == 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}"
                                         class="text-decoration-none">
-                                        Titolo
+                                        TITLE
                                         @if ($sort == 'title')
                                             <i
                                                 class="bi {{ $order == 'asc' ? 'bi-caret-up-fill' : 'bi-caret-down-fill' }}"></i>
@@ -61,7 +61,7 @@
                                 <th>
                                     <a href="{{ route('admin.books_index', ['sort' => 'year', 'order' => $sort == 'year' && $order == 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}"
                                         class="text-decoration-none">
-                                        Anno
+                                        YEAR
                                         @if ($sort == 'year')
                                             <i
                                                 class="bi {{ $order == 'asc' ? 'bi-caret-up-fill' : 'bi-caret-down-fill' }}"></i>
@@ -73,7 +73,7 @@
                                 <th>
                                     <a href="{{ route('admin.books_index', ['sort' => 'language', 'order' => $sort == 'language' && $order == 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}"
                                         class="text-decoration-none">
-                                        Lingua
+                                        LANGUAGE
                                         @if ($sort == 'language')
                                             <i
                                                 class="bi {{ $order == 'asc' ? 'bi-caret-up-fill' : 'bi-caret-down-fill' }}"></i>
@@ -85,7 +85,7 @@
                                 <th>
                                     <a href="{{ route('admin.books_index', ['sort' => 'category', 'order' => $sort == 'category' && $order == 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}"
                                         class="text-decoration-none">
-                                        Categoria
+                                        TAGS
                                         @if ($sort == 'category')
                                             <i
                                                 class="bi {{ $order == 'asc' ? 'bi-caret-up-fill' : 'bi-caret-down-fill' }}"></i>
@@ -114,7 +114,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <p class="mb-0">{{ $book->author->name }}</p>
+                                        <p class="mb-0 fw-light">{{ $book->author->name }}</p>
                                         <p class="mb-0">{{ $book->author->surname }}</p>
                                     </td>
                                     <td class="align-middle">
