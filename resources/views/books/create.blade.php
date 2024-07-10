@@ -1,5 +1,5 @@
 @extends('layouts.admin-sidebar')
-@section('title', 'Books Table')
+@section('title', 'Add Book')
 @section('content')
     @include('partials.admin-sidebar-nav')
 
@@ -24,7 +24,4 @@
 @endsection
 
 {{-- script javascript --}}
-@section('scripts')
-    @include('books.partials.script')
-@endsection
-{{-- end script javascript --}}
+@include('books.partials.script')

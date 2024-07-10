@@ -16,6 +16,7 @@
                         <button type="submit">
                             <svg width="20" height="19" fill="none" xmlns="http://www.w3.org/2000/svg"
                                 role="img" aria-labelledby="search">
+                                <title id="search">Search Icon</title>
                                 <path
                                     d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
                                     stroke="currentColor" stroke-width="1.333" stroke-linecap="round"
@@ -37,8 +38,11 @@
                 <div class="mt-4">
                     @guest
                         <button class="button">
-                            <a href="{{ route('register') }}" type="button"><span class="button-content fw-normal">Join for
-                                    free</span></a>
+                            <a href="{{ route('dashboard') }}"><span class="button-content fw-normal">Dashboard</span></a>
+                        </button>
+                        <button class="button yellow ms-3">
+                            <a href="{{ route('books.index') }}"><span class="button-content fw-normal">Browse
+                                    book</span></a>
                         </button>
                     @endguest
                     @auth

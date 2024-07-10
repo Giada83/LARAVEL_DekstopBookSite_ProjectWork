@@ -22,15 +22,17 @@
 
     <div class="row justify-content-center mt-4 dash-box">
         <div class="col-md-7 second shadow">
-            <div class="row d-flex align-items-center">
-                <div class="col-5 p-2 img-adm">
-                    <img src="{{ asset('assets/image/admin-author.png') }}" class="img-fluid">
+            <a href="{{ route('authors.index') }}" class="text-decoration-none">
+                <div class="row d-flex align-items-center">
+                    <div class="col-5 p-2 img-adm">
+                        <img src="{{ asset('assets/image/admin-author.png') }}" class="img-fluid">
+                    </div>
+                    <div class="col-4 px-4 adm-title">
+                        <h3 class="fs-1 mb-0 ps-1">AUTHORS</h3>
+                        <p class="subtle">Management</p>
+                    </div>
                 </div>
-                <div class="col-4 px-4 adm-title">
-                    <h3 class="fs-1 mb-0 ps-1">AUTHORS</h3>
-                    <p class="subtle">Management</p>
-                </div>
-            </div>
+            </a>
         </div>
     </div>
 

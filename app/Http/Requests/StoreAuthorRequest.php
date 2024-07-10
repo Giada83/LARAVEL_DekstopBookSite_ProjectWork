@@ -11,7 +11,7 @@ class StoreAuthorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreAuthorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|min:2|max:100',
+            'surname' => 'required|string|min:2|max:100',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'nationality' => 'nullable|string|min:2|max:50',
+            'year_born' => 'nullable|integer|min:1800|max:' . date('Y'),
+            'year_die' => 'nullable|integer|min:1850|max:' . date('Y'),
         ];
     }
 }

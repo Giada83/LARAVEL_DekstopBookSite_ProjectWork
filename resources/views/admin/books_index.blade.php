@@ -15,15 +15,85 @@
                         <a class="btn-add" href="{{ route('books.create') }}">Add new book</a>
                     </div>
 
+                    <form action="{{ route('admin.books_index') }}" method="GET">
+                        <input type="text" name="search" placeholder="Cerca per titolo, autore o categoria">
+                        <button type="submit">Cerca</button>
+                    </form>
+
                     <table class="table table-custom">
                         <thead>
-                            <tr>
+                            {{-- <tr>
                                 <th><span class="d-none">Cover</span></th>
                                 <th>AUTHOR</th>
                                 <th>TITLE</th>
                                 <th>YEAR</th>
                                 <th>LANGUAGE</th>
                                 <th>TAGS</th>
+                                <th></th>
+                            </tr> --}}
+                            <tr>
+                                <th><span class="d-none">Cover</span></th>
+                                <th>
+                                    <a href="{{ route('admin.books_index', ['sort' => 'surname', 'order' => $sort == 'surname' && $order == 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}"
+                                        class="text-decoration-none">
+                                        Cognome Autore
+                                        @if ($sort == 'surname')
+                                            <i
+                                                class="bi {{ $order == 'asc' ? 'bi-caret-up-fill' : 'bi-caret-down-fill' }}"></i>
+                                        @else
+                                            <i class="bi bi-caret-down-fill"></i>
+                                        @endif
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="{{ route('admin.books_index', ['sort' => 'title', 'order' => $sort == 'title' && $order == 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}"
+                                        class="text-decoration-none">
+                                        Titolo
+                                        @if ($sort == 'title')
+                                            <i
+                                                class="bi {{ $order == 'asc' ? 'bi-caret-up-fill' : 'bi-caret-down-fill' }}"></i>
+                                        @else
+                                            <i class="bi bi-caret-down-fill"></i>
+                                        @endif
+                                    </a>
+                                </th>
+
+                                <th>
+                                    <a href="{{ route('admin.books_index', ['sort' => 'year', 'order' => $sort == 'year' && $order == 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}"
+                                        class="text-decoration-none">
+                                        Anno
+                                        @if ($sort == 'year')
+                                            <i
+                                                class="bi {{ $order == 'asc' ? 'bi-caret-up-fill' : 'bi-caret-down-fill' }}"></i>
+                                        @else
+                                            <i class="bi bi-caret-down-fill"></i>
+                                        @endif
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="{{ route('admin.books_index', ['sort' => 'language', 'order' => $sort == 'language' && $order == 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}"
+                                        class="text-decoration-none">
+                                        Lingua
+                                        @if ($sort == 'language')
+                                            <i
+                                                class="bi {{ $order == 'asc' ? 'bi-caret-up-fill' : 'bi-caret-down-fill' }}"></i>
+                                        @else
+                                            <i class="bi bi-caret-down-fill"></i>
+                                        @endif
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="{{ route('admin.books_index', ['sort' => 'category', 'order' => $sort == 'category' && $order == 'asc' ? 'desc' : 'asc', 'search' => request('search')]) }}"
+                                        class="text-decoration-none">
+                                        Categoria
+                                        @if ($sort == 'category')
+                                            <i
+                                                class="bi {{ $order == 'asc' ? 'bi-caret-up-fill' : 'bi-caret-down-fill' }}"></i>
+                                        @else
+                                            <i class="bi bi-caret-down-fill"></i>
+                                        @endif
+                                    </a>
+                                </th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -94,9 +164,11 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    {{ $books->appends(['sort' => $sort, 'order' => $order, 'search' => request('search')])->links() }}
                 </div>
-                {{-- paginazione --}}
-                <span class="mt-2">{{ $books->links() }}</span>
+                {{-- paginazione
+                <span class="mt-2">{{ $books->links() }}</span> --}}
             </div>
         </div>
     </div>

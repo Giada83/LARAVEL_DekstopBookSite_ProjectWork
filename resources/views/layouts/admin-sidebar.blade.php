@@ -34,7 +34,7 @@
                         </li>
                         {{-- Tabella autori --}}
                         <li>
-                            <a href="#" class="nav-link px-0 align-middle">
+                            <a href="{{ route('authors.index') }}" class="nav-link px-0 align-middle">
                                 <i class="bi bi-people"></i><span class="ms-1 d-none d-sm-inline">Authors</span></a>
                         </li>
                         {{-- Tabella categorie --}}

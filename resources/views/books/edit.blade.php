@@ -1,11 +1,11 @@
 @extends('layouts.admin-sidebar')
-@section('title', 'Books Table')
+@section('title', 'Edit Book')
 @section('content')
     @include('partials.admin-sidebar-nav')
 
     <div class="container">
         <div class="px-3 mb-5 mt-4">
-            <h2 class="fw-light fav-title edit mb-3">Add a new book</h2>
+            <h2 class="fw-light fav-title edit mb-3">Edit a book</h2>
 
             <div class="row">
                 <div class="col-md-8">
@@ -26,6 +26,4 @@
 @endsection
 
 {{-- script javascript --}}
-@section('scripts')
-    @include('books.partials.script')
-@endsection
+@include('books.partials.script')
