@@ -42,6 +42,9 @@ Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show')
 
 // Utenti loggati
 Route::middleware('auth')->group(function () {
+    //Dashboard
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+
     //Rotte per il model Review - esclusa la index
     Route::resource('reviews', ReviewController::class)->except('index');
     Route::get('/user/reviews', [UserController::class, 'userReviews'])->name('user.reviews'); // Visualizzare recensioni per un utente
@@ -65,8 +68,8 @@ Route::middleware('auth')->group(function () {
 });
 
 // Dashboard
-Route::get('/dashboard', function () {
-    return view('user.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('user.dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

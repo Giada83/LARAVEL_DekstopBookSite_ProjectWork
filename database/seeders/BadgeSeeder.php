@@ -13,7 +13,7 @@ class BadgeSeeder extends Seeder
             ['name' => 'First Book Favorited'],
             [
                 'description' => 'You have added your first book to favorites!',
-                'icon' => 'https://upload.wikimedia.org/wikipedia/commons/0/02/Suit_Hearts_%28open_clipart%29.svg'
+                'icon' => 'assets/image/badge_1.png'
             ]
         );
     }

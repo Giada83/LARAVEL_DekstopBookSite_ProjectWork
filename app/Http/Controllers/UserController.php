@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -18,5 +19,11 @@ class UserController extends Controller
             ->get();
 
         return view('user.reviews', compact('reviews'));
+    }
+
+    public function dashboard()
+    {
+        $user = Auth::user(); // Recupera l'utente autenticato
+        return view('user.dashboard', compact('user'));
     }
 }
