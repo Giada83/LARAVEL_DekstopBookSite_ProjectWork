@@ -22,6 +22,13 @@
                     </li>
                 </ul>
             @endauth
+            @admin
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item ms-2">
+                        <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+                    </li>
+                </ul>
+            @endadmin
 
             {{-- autenticazione e logout --}}
             <ul class="navbar-nav ms-auto">

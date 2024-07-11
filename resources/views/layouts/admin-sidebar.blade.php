@@ -39,7 +39,7 @@
                         </li>
                         {{-- Tabella categorie --}}
                         <li>
-                            <a href="#" class="nav-link px-0 align-middle">
+                            <a href="{{ route('categories.index') }}" class="nav-link px-0 align-middle">
                                 <i class="bi-tags"></i><span class="ms-1 d-none d-sm-inline">Categories</span>
                             </a>
                         </li>

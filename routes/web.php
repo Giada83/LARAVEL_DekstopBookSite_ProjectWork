@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\GoogleSocialiteController;
 
 // Homepage
@@ -35,6 +36,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('books', BookController::class)->except('index', 'show');
     // autori crud
     Route::resource('authors', AuthorController::class)->except('show');
+    // categorie crud
+    Route::resource('categories', CategoryController::class)->except('show');
 });
 
 // Dettaglio libro

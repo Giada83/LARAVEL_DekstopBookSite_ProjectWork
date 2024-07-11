@@ -41,6 +41,11 @@
 .table-custom thead th {
     background-color: transparent;
 }
+.table-custom thead th {
+    color: grey;
+    font-weight: 300;
+    font-size: 0.8rem;
+}
 
 .table-custom thead th a {
     background-color: transparent;

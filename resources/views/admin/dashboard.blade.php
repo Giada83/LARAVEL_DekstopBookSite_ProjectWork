@@ -38,15 +38,17 @@
 
     <div class="row justify-content-center mt-4 dash-box">
         <div class="col-md-7 third shadow">
-            <div class="row d-flex align-items-center">
-                <div class="col-5 p-2 img-adm text-center">
-                    <img src="{{ asset('assets/image/admin-categ.png') }}" class="img-fluid">
+            <a href="{{ route('categories.index') }}" class="text-decoration-none">
+                <div class="row d-flex align-items-center">
+                    <div class="col-5 p-2 img-adm text-center">
+                        <img src="{{ asset('assets/image/admin-categ.png') }}" class="img-fluid">
+                    </div>
+                    <div class="col-4 px-4 adm-title">
+                        <h3 class="fs-1 mb-0 ps-1">CATEGORIES</h3>
+                        <p class="subtle">Management</p>
+                    </div>
                 </div>
-                <div class="col-4 px-4 adm-title">
-                    <h3 class="fs-1 mb-0 ps-1">CATEGORIES</h3>
-                    <p class="subtle">Management</p>
-                </div>
-            </div>
+            </a>
         </div>
     </div>
 

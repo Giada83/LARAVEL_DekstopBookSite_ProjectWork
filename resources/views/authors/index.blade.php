@@ -17,6 +17,7 @@
 
                     <table class="table table-custom">
                         <thead>
+
                             <th><span class="d-none">Image</span></th>
                             <th>NAME</th>
                             <th>SURNAME</th>
@@ -24,7 +25,7 @@
                             <th>BORN</th>
                             <th>DIED</th>
                             <th></th>
-                            </tr>
+
                         </thead>
                         <tbody>
                             @foreach ($authors as $author)
